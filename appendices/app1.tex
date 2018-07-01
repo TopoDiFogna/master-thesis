@@ -1,0 +1,61 @@
+\chapter{Open MPI extra commands}
+\label{app:ompicommands}
+This appendix summarizes the auxiliary commands of Open MPI not included in the
+MPI standard. The list is updated with commands present in version 1.10 of Open
+MPI.
+
+The list of available commands as presented in the documentation 
+\textbf{User Commands} (\emph{man page} 1) are presented in Table
+\ref{tab:ompi-cmd-1}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{p{3cm}|p{9cm}}
+
+\textbf{Command} & \textbf{Description} \\ \hline
+\texttt{ompi-clean}
+\texttt{orte-clean} & It cleans up old files and processes left by previous Open
+                      MPI jobs in the local node. It kills the processes spawned
+                      by a previous application and remove all temporary files.
+\\ \hline 
+\texttt{ompi-ps} 
+\texttt{orte-ps}    & It shows the information about the active MPI jobs and
+                      processes. It works universally, i.e. it displays the
+                      information even if it is not the HNP.
+\\ \hline
+\texttt{ompi-server}
+\texttt{orte-server}& It activates a server that can be contacted via the MPI
+                      calls \emph{Publish\_name}/\emph{Lookup\_name}.
+\\ \hline
+\texttt{ompi-top}
+\texttt{orte-top}   & It displays the information similar to \texttt{top} Linux
+                      utility.
+\\ \hline
+\texttt{ompi-info}
+\texttt{orte-info}  & It provides the information about the compilation and the
+                      installation of Open MPI. This utility is very useful for
+                      both Open MPI developers and users, in order to check
+                      how Open MPI is configurated and which modules are
+                      available.
+\\ \hline
+\texttt{opal\_wrapper} & Should not be called directly. A wrapper executable for
+                        \texttt{mpicc}, \texttt{mpic++}, etc. 
+
+\\ \hline
+\texttt{orte-dvm} & It starts an \texttt{orted} for each node before submit a
+                    job. The jobs may be submitted next via the 
+                    \texttt{orte-submit} command. It is useful for launching
+                    numerous short applications. 
+
+\\ \hline
+\texttt{orte-submit} & It submits a job into distributed daemons spawned with
+                       \texttt{orte-dvm}. 
+
+\\ \hline
+\texttt{orted}       & The daemon spawned on each node.
+\end{tabular}
+
+\caption{Open MPI User commands.}
+\label{tab:ompi-cmd-1}
+\end{table}
+

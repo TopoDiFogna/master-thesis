@@ -1,0 +1,189 @@
+% For printing in a4
+%\documentclass[a4,10pt,twoside,openright,italian,english]{book}% twoside!
+
+% For printing with the A5 format
+\documentclass[11pt,twoside,openright,english,italian]{book}% twoside!
+
+% Set paper size
+\usepackage[twoside=true]{geometry}
+
+\geometry{a4paper,
+  top=33mm,
+  bottom=34mm,
+  inner=38mm,
+  outer=32mm,
+  bindingoffset=5mm
+}
+
+
+%Uncomment this for f016inal prints: this just enables printing on a4 paper
+\usepackage[cam,center,a4,pdflatex,axes]{crop}
+
+\usepackage{phdthesis}
+
+\usepackage{epstopdf}
+\usepackage{fancyhdr}
+\usepackage{color}
+\usepackage{array}
+\usepackage{mdwmath}
+\usepackage{mdwtab}
+\usepackage{amsmath,amssymb}
+\usepackage{cite}
+\usepackage[demo]{graphicx}
+\usepackage{glossaries}
+\usepackage{listings}
+\usepackage{subfig}
+\usepackage{booktabs}
+\usepackage{latexsym}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage{bnf}
+\usepackage{rotating}
+\usepackage{multirow}
+\usepackage{phdtitle}
+\usepackage{paralist}
+\usepackage{bibentry}
+%\usepackage[algochapter]{algorithm2e}
+\usepackage{lscape}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{longtable}
+\usepackage[T1]{fontenc} 
+\usepackage[utf8]{inputenc}
+\usepackage{setspace}
+
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+
+%% \hyphenation{} is used to force the 
+\hyphenation{}
+
+\newtheorem{Definition}{Definition}[section]
+
+\onehalfspacing
+
+\lstset{tabsize=2,basicstyle=\footnotesize,breaklines=true}
+
+\usepackage[english,italian]{babel}
+\usepackage[toc]{appendix}
+
+% Colors
+\definecolor{inlinecommandcolor}{HTML}{DDEEFF}
+\newcommand{\inlinecommand}[1]{\vspace{3mm}
+	\colorbox{inlinecommandcolor}{\parbox[b]{12.6cm}{
+	\texttt{#1} 
+	}}
+	\vspace{1mm}
+}
+
+\usepackage{ulem}
+\normalem
+
+\usepackage[bookmarks=true,pdftex=false,bookmarksopen=true,pdfborder={0,0,0},hidelinks]{hyperref}
+
+
+\hypersetup{pdftitle={Enabling and Exploiting Process-level Task Migration
+in Open MPI with BarbequeRTRM}, pdfauthor={Federico Reghenzani}}
+
+\nobibliography*
+
+\department {Scuola di Ingegneria Industriale e dell'Informazione}
+\phdprogram{Tesi di Laurea Magistrale in\\Computer Science and Engineering}
+
+\author{dott. Federico Reghenzani}
+\authorid{837328}
+
+\title{Enabling and Exploiting Process-level Task Migration
+in Open MPI with BarbequeRTRM}
+\supervisor{William Fornaciari}
+\tutor{Giuseppe Massari}
+\titleimage{img/logo_poli-converted.pdf}
+\phdcycle{A.Y. 2015/2016}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Let's Start The Real Document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\selectlanguage{english}
+
+\maketitle
+
+\pagestyle{empty}
+
+\cleardoublepage
+\newpage
+
+
+\pagestyle{fancy}
+% change numbering into Roman numbers for the introductory part
+\setcounter{page}{1}
+\pagenumbering{Roman}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TOC
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setcounter{tocdepth}{1}
+\tableofcontents
+\cleardoublepage
+\newpage
+
+
+%
+% LIST OF 
+%
+
+\cleardoublepage
+\addcontentsline{toc}{chapter}{List of Figures}
+\listoffigures
+\addcontentsline{toc}{chapter}{List of Tables}
+\listoftables
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Acknowledgement
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\addcontentsline{toc}{chapter}{Acknowledgment}
+\input{chapters/acknowledge}
+\cleardoublepage
+\newpage
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Abstract
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{chapters/abstract}
+
+\cleardoublepage
+
+% Now lets go back to normal numbering
+\setcounter{page}{1}
+\pagenumbering{arabic}
+
+\cleardoublepage
+\input{chapters/chapter1} 
+\input{chapters/chapter2}
+\input{chapters/chapter3}
+\input{chapters/chapter4}
+\input{chapters/chapter5}
+\input{chapters/chapter6}
+\input{chapters/chapter7}
+
+\begin{appendices}
+\input{appendices/app1}
+\input{appendices/app2}
+\end{appendices}
+
+
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{\bibname}
+\small
+\bibliographystyle{unsrt}
+\bibliography{thesis}
+
+
+
+\end{document}

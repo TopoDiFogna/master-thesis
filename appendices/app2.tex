@@ -1,0 +1,130 @@
+\chapter{DistRib ILP formulation}
+\label{app:distrib-ilp-formulation}
+This appendix provides a formulation in \textbf{GNU MathProg} of the proposed
+Integer Linear Programming problem used in the DistRib policy.
+
+GNU MathProg is a high-level language to write mathematical models,
+in particular optimization problems. It is specific to GLPK, but compatible
+with the well-known \textbf{A Mathematical Programming Language (AMPL)}
+\cite{fourer1990modeling}. To be precise, the GNU MathProf contains a subset
+of instruction of the AMPL language.
+
+The proposed formulation is implemented in BarbequeRTRM using the GLPK
+libraries even if less intuitive than the GNU MathProg language. However, the
+overhead drastically reduces, since a syntax parser of the model is not
+required.
+
+The GNU MathProg formulation is presented in Listing \ref{app2:mathprog}.
+
+The proposed ILP has two variables, the \texttt{proc\_assigned} and the
+\linebreak
+\texttt{is\_assigned} variables
+respectively correspond to the \(\pi\) and \(\phi\) of the mathematical
+model presented in Chapter \ref{cap:integration}.
+
+The parameters used in the formulation are:
+\begin{itemize}
+\item \texttt{num\_pe}: the vector containing the number of available 
+processor elements per core.
+\item \texttt{num\_proc}: the vector containing the number
+of processes requested per application.
+\item \texttt{priority}: the vector parameter
+that represents \(p_a\), i.e. the priority for each application.
+\item \texttt{sys\_penalty}: the vector parameter that represents \(r_s\),
+i.e. an empirical number for per-system penalty.
+\item \texttt{K\_dist}: the constant weight to the cost related to distribution
+\item \texttt{max\_pe\_per\_system}: an arbitrarily number sufficient big to guarantee the constraints between \(\pi\) and \(\phi\) (details later).
+\end{itemize}
+
+After the definition of the cost objective function, there are four
+constraints:
+\begin{itemize}
+\item \texttt{full\_assignment}: it assures that all the processes request of
+each application is respected;
+\item \texttt{resource\_availability}: it assures that the number of processes
+assigned to each systems does not exceed the available processing elements;
+\item \texttt{var\_association}: it bound the \(\pi\) and \(\phi\) variables in
+sense that if \(\phi=1\) then  \(\pi \ge 1 \).
+
+\item \texttt{var\_association\_rev}: the reverse bound between \(\pi\) and
+\(\phi\), if \(\pi \ge 1\) then  \(\phi = 1 \).
+
+\end{itemize}
+
+\definecolor{britishracinggreen}{rgb}{0.0, 0.26, 0.15}
+\lstdefinestyle{customc}{
+  belowcaptionskip=1\baselineskip,
+  breaklines=true,
+  frame=L,
+  xleftmargin=\parindent,
+  language=C,
+  showstringspaces=false,
+  basicstyle=\footnotesize\ttfamily,
+%  keywordstyle=\bfseries\color{green!40!black},
+  commentstyle=\itshape\color{britishracinggreen},
+  identifierstyle=\color{black},
+  keywordstyle=\color{blue}\ttfamily,
+  stringstyle=\color{orange},
+alsoletter={.},
+  morekeywords={%  
+    set, var, in, integer, binary,param, minimize, sum, s.t.%
+    }
+}
+
+\lstset{%
+}%
+
+\begin{figure}[t]
+\begin{lstlisting}[style=customc]
+set SYSTEMS;
+set APPLICATIONS;
+
+/* 
+ * The only two necessary variables. The first one is not used in the cost
+ * function but it's required for proper resource assignment.
+ */
+var proc_assigned{i in APPLICATIONS, j in SYSTEMS}, >=0, integer;
+var is_assigned  {i in APPLICATIONS, j in SYSTEMS}, >=0, binary;
+
+/* 
+ * The various constant parameters.
+ */
+param num_pe     {j in SYSTEMS};
+param num_proc   {i in APPLICATIONS};
+param priority   {i in APPLICATIONS};
+param sys_penalty{j in SYSTEMS};
+
+param K_dist;
+param max_pe_per_system; /* required for the constaints of binary variable,
+                            it may be set to 1000000 or similar */
+
+/* 
+ * The minimization of the cost function.
+ */
+minimize cost: sum{i in APPLICATIONS} sum{j in SYSTEMS} 
+                    ( priority[i] * 
+                    (
+                      proc_assigned[i,j] * sys_penalty[j]  + 
+                      K_dist * is_assigned[i,j] 
+                    ));
+
+/* 
+ * Constraints.
+ */
+s.t. full_assignment{i in APPLICATIONS}:
+    sum{j in SYSTEMS} proc_assigned[i,j] >= num_proc[i,j];
+
+s.t. resource_availability{j in SYSTEMS}:
+    sum{i in APPLICATIONS} proc_assigned[i,j] <= num_pe[j];
+
+s.t. var_association{i in APPLICATIONS, j in SYSTEMS}:
+    is_assigned[i,j] <= proc_assigned[i,j];
+
+s.t. var_association_rev{i in APPLICATIONS, j in SYSTEMS}:
+    max_pe_per_system * is_assigned[i,j] >= proc_assigned[i,j];
+
+\end{lstlisting}
+\renewcommand\figurename{Listing}
+\caption{The MathProg formulation of DistRib ILP solver.}
+\label{app2:mathprog}
+\end{figure}

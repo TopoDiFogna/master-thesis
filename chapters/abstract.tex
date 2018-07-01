@@ -1,0 +1,83 @@
+% MAX 2200 CARATTERI!
+\addcontentsline{toc}{chapter}{Abstract (Italian version)}
+\chapter*{Abstract (Italian version)}
+\markboth{Abstract (Italian version)}{}
+
+\begin{otherlanguage}{italian}
+
+\lettrine{I}{} sistemi High Performance Computing (HPC) sono tipicamente
+caratterizzati da
+un gran numero di risorse - CPU, GPU, ecc - implicando, di conseguenza, la necessità di
+affrontare il problema di una loro efficace utilizzazione. In aggiunta a ciò, non
+è possibile ignorare le strategie di risparmio energetico e dissipazione del calore essenziali in ambiente HPC.
+Questo quadro è reso ancora più complesso dal fatto che i moderni
+sistemi sono caratterizzati da un livello decrescente di affidabilità.
+Per tutte queste ragioni, meccanismi e politiche poco invasive
+di gestione delle risorse diventano essenziali al fine di risolvere i problemi presentati.
+
+Proprio a causa della loro natura distribuita, i sistemi HPC utilizzano
+paradigmi di programmazione
+parallela, tra i quali annoveriamo uno dei più utilizzati: Message Passing
+Interface (MPI). Questa tesi presenta un'estensione dell'implementazione
+Open MPI, chiamata \texttt{mig}, al fine di supportare in modo trasparente
+la migrazione di processi di un'applicazione.
+
+Questo meccanismo è integrabile con un gestore delle risorse
+e in questo lavoro ne viene proposto uno basato su Barbeque
+Run-Time Resource Manager. Questo approccio ci consente di superare la
+limitazione di MPI che impedisce la ridefinizione dell'assegnamento delle risorse computazionali a runtime una volta che l'applicazione è stata lanciata. Ciò
+rappresenta anche una limitazione sia per quanto concerne l'implementazione di strategie di resilienza ai guasti, sia nei riguardi dell'uso efficace delle risorse. 
+
+L'estensione \texttt{mig} aumenta la flessibilità introducendo una granularità
+più fine di allocazione del carico di lavoro, attraverso la possibilità di
+eseguire la \emph{migrazione dei processi}. A tal proposito, in letteratura esistono già molte tecniche di migrazione, ma mancano principalmente
+di trasparenza
+rispetto all'applicazione. In passato in Open MPI esisteva un supporto per la
+tolleranza ai guasti basato su tecniche di Checkpoint/Restart, ma fu
+successivamente rimosso a causa della difficile manutenibilità.
+
+In questa tesi proponiamo il framework \texttt{mig} come un'estensione di
+Open MPI per risolvere i problemi precedentemente descritti, in particolare
+in termini di
+trasparenza e manutenibilità. L'implementazione di una politica di allocazione
+delle risorse per BarbequeRTRM è proposta come un possibile caso d'uso del framework.
+
+
+\end{otherlanguage}
+
+\addcontentsline{toc}{chapter}{Abstract}
+\chapter*{Abstract}
+\markboth{Abstract}{}
+
+\lettrine{T}{he} High Performance Computing (HPC) systems typically include
+a large number of computing resources - CPUs, GPUs, etc. As a consequence,
+we must face with the problem of an effective utilization of them. In addition,
+we cannot avoid from taking into account power saving and thermal management
+strategies. The overall picture is made more complex by the fact that modern
+systems are affected by decreasing level of reliability. For all these reasons,
+we need effective and poorly invasive resource management mechanisms and
+policies to address these issues.
+
+Moreover, HPC systems need specific parallel programming paradigms, among these one of
+the most widespread is Message Passing Interface (MPI). This thesis presents
+an extension of the Open MPI implementation, called \texttt{mig} to
+transparently support
+the migration of application processes. This mechanism may be driven by a
+resource manager and in this work an example of exploitation based on the
+Barbeque Run-Time Resource Manager is proposed. This approach allows us also
+to overcome a limitation of the MPI paradigm. In fact, once the application is
+launched it is no more possible to redefine the assignment of computing
+resource at run-time. This represents also limitation from the point of view of
+effective usage of the resources and implementation of fault-tolerance
+strategies.
+
+The \texttt{mig} extension introduces more flexibility by enabling a more fine grained workload allocation, through the possibility of performing
+\emph{process migration}. In this regard, a lot of  migration techniques are already available
+in  literature, but they suffer from the lack of
+transparency with respect to the application. In the past, Open MPI had
+fault-tolerance support based on Checkpoint/Restart techniques, but they were subsequently removed due to hard maintainability requirements.
+
+In this thesis we propose the \texttt{mig} framework as an Open MPI extension
+that overcomes the aforementioned issues in terms of transparency and poor
+maintainability. The implementation of a resource allocation policy for the
+BarbequeRTRM is also proposed as an example of exploitation of the framework.

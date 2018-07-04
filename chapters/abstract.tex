@@ -4,7 +4,7 @@
 \markboth{Abstract (Italian version)}{}
 
 \begin{otherlanguage}{italian}
-
+\iffalse
 \lettrine{I}{} sistemi High Performance Computing (HPC) sono tipicamente
 caratterizzati da
 un gran numero di risorse - CPU, GPU, ecc - implicando, di conseguenza, la necessità di
@@ -42,13 +42,13 @@ in termini di
 trasparenza e manutenibilità. L'implementazione di una politica di allocazione
 delle risorse per BarbequeRTRM è proposta come un possibile caso d'uso del framework.
 
-
+\fi
 \end{otherlanguage}
 
 \addcontentsline{toc}{chapter}{Abstract}
 \chapter*{Abstract}
 \markboth{Abstract}{}
-
+\iffalse
 \lettrine{T}{he} High Performance Computing (HPC) systems typically include
 a large number of computing resources - CPUs, GPUs, etc. As a consequence,
 we must face with the problem of an effective utilization of them. In addition,
@@ -81,3 +81,4 @@ In this thesis we propose the \texttt{mig} framework as an Open MPI extension
 that overcomes the aforementioned issues in terms of transparency and poor
 maintainability. The implementation of a resource allocation policy for the
 BarbequeRTRM is also proposed as an example of exploitation of the framework.
+\fi

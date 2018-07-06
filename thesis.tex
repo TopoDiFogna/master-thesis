@@ -15,77 +15,52 @@
   bindingoffset=5mm
 }
 
-
-%Uncomment this for f016inal prints: this just enables printing on a4 paper
-\usepackage[cam,center,a4,pdflatex,axes]{crop}
+%\usepackage[cam,center,a4,pdflatex,axes]{crop}
 
 \usepackage{phdthesis}
+\usepackage{phdtitle}
 
-\usepackage{epstopdf}
-\usepackage{fancyhdr}
-\usepackage{color}
-\usepackage{array}
-\usepackage{mdwmath}
-\usepackage{mdwtab}
-\usepackage{amsmath,amssymb}
-\usepackage{cite}
-\usepackage[demo]{graphicx}
-\usepackage{glossaries}
+
+
 \usepackage{listings}
 \usepackage{subfig}
-\usepackage{booktabs}
-\usepackage{latexsym}
+\usepackage{graphicx}
 \usepackage{xcolor}
-\usepackage{url}
-\usepackage{bnf}
-\usepackage{rotating}
-\usepackage{multirow}
-\usepackage{phdtitle}
-\usepackage{paralist}
 \usepackage{bibentry}
-%\usepackage[algochapter]{algorithm2e}
-\usepackage{lscape}
-\usepackage{algorithmic}
-\usepackage{algorithm}
-\usepackage{longtable}
-\usepackage[T1]{fontenc} 
-\usepackage[utf8]{inputenc}
 \usepackage{setspace}
+\usepackage[english,italian]{babel}
+\usepackage[toc]{appendix}
+\usepackage[bookmarks=true,pdftex=false,bookmarksopen=true,pdfborder={0,0,0},hidelinks]{hyperref}
+%\usepackage{array}
+%\usepackage{epstopdf}
+%\usepackage{color}
+%\usepackage{mdwmath}
+%\usepackage{mdwtab}
+%\usepackage{amsmath,amssymb}
+%\usepackage{cite}
+%\usepackage{glossaries}
+%\usepackage{booktabs}
+%\usepackage{latexsym}
+%\usepackage{url}
+%\usepackage{bnf}
+%\usepackage{rotating}
+%\usepackage{multirow}
+%\usepackage{paralist}
+%\usepackage[algochapter]{algorithm2e}
+%\usepackage{lscape}
+%\usepackage{algorithmic}
+%\usepackage{algorithm}
+%\usepackage{longtable}
+%\usepackage[T1]{fontenc} 
+%\usepackage[utf8]{inputenc}
 
-\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
-\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
-\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
-
-
-%% \hyphenation{} is used to force the 
 \hyphenation{}
-
-\newtheorem{Definition}{Definition}[section]
 
 \onehalfspacing
 
 \lstset{tabsize=2,basicstyle=\footnotesize,breaklines=true}
 
-\usepackage[english,italian]{babel}
-\usepackage[toc]{appendix}
-
-% Colors
-\definecolor{inlinecommandcolor}{HTML}{DDEEFF}
-\newcommand{\inlinecommand}[1]{\vspace{3mm}
-	\colorbox{inlinecommandcolor}{\parbox[b]{12.6cm}{
-	\texttt{#1} 
-	}}
-	\vspace{1mm}
-}
-
-\usepackage{ulem}
-\normalem
-
-\usepackage[bookmarks=true,pdftex=false,bookmarksopen=true,pdfborder={0,0,0},hidelinks]{hyperref}
-
-
-\hypersetup{pdftitle={Enabling and Exploiting Process-level Task Migration
-in Open MPI with BarbequeRTRM}, pdfauthor={Federico Reghenzani}}
+\hypersetup{pdftitle={Title}, pdfauthor={Paolo Paterna}}
 
 \nobibliography*
 
@@ -109,13 +84,8 @@ in Open MPI with BarbequeRTRM}, pdfauthor={Federico Reghenzani}}
 
 \maketitle
 
-\pagestyle{empty}
-
 \cleardoublepage
-\newpage
 
-
-\pagestyle{fancy}
 % change numbering into Roman numbers for the introductory part
 \setcounter{page}{1}
 \pagenumbering{Roman}
@@ -126,14 +96,11 @@ in Open MPI with BarbequeRTRM}, pdfauthor={Federico Reghenzani}}
 \setcounter{tocdepth}{1}
 \tableofcontents
 \cleardoublepage
-\newpage
 
 
 %
 % LIST OF 
 %
-
-\cleardoublepage
 \addcontentsline{toc}{chapter}{List of Figures}
 \listoffigures
 \addcontentsline{toc}{chapter}{List of Tables}
@@ -146,9 +113,6 @@ in Open MPI with BarbequeRTRM}, pdfauthor={Federico Reghenzani}}
 \addcontentsline{toc}{chapter}{Acknowledgment}
 \input{chapters/acknowledge}
 \cleardoublepage
-\newpage
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Abstract
@@ -161,9 +125,8 @@ in Open MPI with BarbequeRTRM}, pdfauthor={Federico Reghenzani}}
 \setcounter{page}{1}
 \pagenumbering{arabic}
 
-\cleardoublepage
-\input{chapters/chapter1} 
-\input{chapters/chapter2}
+\include{chapters/chapter1} 
+\include{chapters/chapter2}
 
 
 \begin{appendices}

@@ -19,28 +19,31 @@ All these properties can be grouped in two more abstract concepts which are self
 \textbf{Self-Awareness} is the ability of the system to be able to monitor itself in terms of available resources and behavior.
 
 \textbf{Context-Awareness} is the ability of the system to understand the environment where it is working, using the information provided by its components, and adapt itself to all the changes that can occur during its normal operational status.
-
-To better understand how a SASS works we need to answer some simple questions:\linebreak
-\iffalse
+To better understand how a SASS works we need to answer some simple questions:
 \begin{itemize}
 	\item Who is adapting?
 	\item Which adaptation is required?
 	\item When is necessary to adapt?
-	\item Where is needed to change something
+	\item Where is needed to change something?
 	\item Why is needed an adaptation?
 	\item How we achieve this goal?
 \end{itemize}
-\fi
-\begin{figure}[t]
+
+During the past years have been developed some dimensions that help to answer all this simple questions: \emph{Time}, \emph{Reason}, \emph{Level}, \emph{Technique} and \emph{Adaptation Control} shown in figure \ref{fig:dimensions}.
+\begin{figure}[h]
 	\centerline
-	{\includegraphics[scale=0.55]{img\dimensions.pdf}}
-	\caption[The Dimensions]{The Dimensions.}
+	{\includegraphics[scale=0.55]{img/dimensions.pdf}}
+	\caption[The Dimensions]{The Dimensions to analyze adaptation.\cite{eng-appr-sas}}
 	\label{fig:dimensions}
 \end{figure}
-During the past years have been developed some dimensions that help to answer all this simple questions: \emph{Time}, 
 
 \textbf{Who is adapting?} As the name suggests, it's the system itself that changes something in order to preserve some given constraint.
-\textbf{Which adaptation is required?} 
+
+\textbf{Which adaptation is required?} The \emph{Technique} dimension is the one that answers this question in fact the software engineer can change either the parameters or the system can be considered as a set of components. The former case allows to fine tuning the system at the expense of an higher complexity, the latter is called composite vision and permits the systems to cooperate exchanging algorithms and much more important, reusing components which improve performance because failed or defected components can be replaced.
+
+\textbf{When is necessary to adapt?} The \emph{Time} dimension is crucial in this situation. There are three typical approaches: the reactive one is the more traditional one which states that an adaptation is needed only after a causative event. The other two approaches are more interesting and they are predictive and proactive. The former studies the system before any event and calculate the need of an adaptation, the latter applies and adaptation despite an event and improves the performance. From the user perspective the proactive approach is the best because it doesn't interrupt the operation of the system in any load but it is the more complicated to implement. Monitoring continuously the system is a costly task to do, on the other side an adaptive monitoring is simple that analyze only specific aspect and/or resources and intervenes only if needed.
+
+\textbf{Where is needed to change something?}
 \subsection{The SOLAR Framework}
 However working on the adaptability of a system can impact other quality attributes such as performance, reliability or maintainability and in the worst case improving adaptability can decrease part, if not all, of these attributes as stated in \cite{bass2003software}: \emph{quality attributes can never be achieved in isolation, the achievement of any one will have an effect, sometimes positive and sometimes negative, on the achievement of others}.
 

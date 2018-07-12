@@ -32,7 +32,7 @@ To better understand how a SASS works we need to answer some simple questions:
 During the past years have been developed some dimensions that help to answer all this simple questions: \emph{Time}, \emph{Reason}, \emph{Level}, \emph{Technique} and \emph{Adaptation Control} shown in figure \ref{fig:dimensions}.
 \begin{figure}[h]
 	\centerline
-	{\includegraphics[scale=0.55]{img/dimensions.pdf}}
+	{\includegraphics[scale=0.50]{img/dimensions.png}}
 	\caption[The Dimensions]{The Dimensions to analyze adaptation.\cite{eng-appr-sas}}
 	\label{fig:dimensions}
 \end{figure}
@@ -43,14 +43,49 @@ During the past years have been developed some dimensions that help to answer al
 
 \textbf{When is necessary to adapt?} The \emph{Time} dimension is crucial in this situation. There are three typical approaches: the reactive one is the more traditional one which states that an adaptation is needed only after a causative event. The other two approaches are more interesting and they are predictive and proactive. The former studies the system before any event and calculate the need of an adaptation, the latter applies and adaptation despite an event and improves the performance. From the user perspective the proactive approach is the best because it doesn't interrupt the operation of the system in any load but it is the more complicated to implement. Monitoring continuously the system is a costly task to do, on the other side an adaptive monitoring is simple that analyze only specific aspect and/or resources and intervenes only if needed.
 
-\textbf{Where is needed to change something?} In general a SASS is composed by two main part: the the adaptability logic (AL) and the managed resource (MR). The former in general doesn't change, the latter is composed at the base of the hardware and of the software such as the operating system or, in case of distributed systems, the middleware that control the hardware; at a higher level of the application. These are the parts that require adaptation. To answer this question is needed to decide at which level the operation has to be applied without neglecting the relationship between the MR and the AL which is composed by the network that connects them and/or the view of the communication patterns. Thus \emph{Level} is the considered dimension.
+\textbf{Where is needed to change something?} In general a SASS is composed by two main part: the the Adaptability Logic (AL) and the Managed Resource (MR). The former in general doesn't change, the latter is composed at the base of the hardware and of the software such as the operating system or, in case of distributed systems, the middleware that control the hardware; at a higher level of the application. These are the parts that require adaptation. To answer this question is needed to decide at which level the operation has to be applied without neglecting the relationship between the MR and the AL which is composed by the network that connects them and/or the view of the communication patterns. Thus \emph{Level} is the considered dimension.
 
 \textbf{Why is needed an adaptation?} In this case, \emph{Reason} is the right dimension. There can be one or more reason because a system needs adaptation such as a change in the available resources, a change in the environment or a change in the user base of the system.
 
-\textbf{How we achieve this goal?} The answer to this question is more complicated than the others so is treated in the following section using the \emph{Adaptation Control}.
+\textbf{How we achieve this goal?} The answer to this question is more complicated than the others because it needs a new topic called \emph{Adaptation Control}.
 
 \subsection{Adaptation Control}
+In the literature can be found 2 approaches: the \emph{internal approach} that intertwine the adaptation logic with the system resources, which has problems with the maintainability and scalability of the system, and the \emph{external approach} that splits the system into adaptation logic and managed resources, which increases maintainability and scalability through modularization.
 
+The control unit needs a metric in order to decide how to adapt and in literature are present different metrics: models, rules and policies, goal or utility functions \cite{autonomic-computing}.
+
+Another aspect of the adaptation logic is the degree of decentralization. If we have a system with limited resources then a centralized adaptation logic has to be preferred but with greater systems a decentralized AL can improve performance and  every sub-system can communicate with another with different patterns of communication. Of course hybrid technique can be made mixing the previous approaches.
+
+\subsubsection{Adaptation Logic Issues}
+As said before a SASS is composed of managed resources and the adaptation logic; it can be represented by the tuple \texttt{SASS = (AL, MR)}. \emph{AL = $a_1$, \dots, $a_n$}, with $a_i$ representing a logic element,  monitors the environment (M), analyzes the data for change (A), plans adaptation (P) and control the execution of the adaptation (E): these are known as \emph{MAPE cycle} or \emph{MAPE functionality}\cite{vision-aut-comp}. \emph{MR = $mr_1$, \dots, $mr_n$}, with $mr_i$ representing a resource, is the set of resources such as hardware with software, smart-phones, robotics or unmanned vehicles. Figure  \ref{fig:sass} shows a SASS where the dashed line represent the system border.
+\begin{figure}[h]
+	\centerline
+	{\includegraphics[scale=0.55]{img/managed-resources.png}}
+	\caption[A SASS]{A SASS (AL = Adaptation Logic, MR = Managed Resources, U = User(s), C = Context, M,A,P,E = MAPE functionality).\cite{eng-appr-sas}}
+	\label{fig:sass}
+\end{figure}
+The dimension can therefore be mapped to the MAPE functionalities as shown in table \ref{tab:mape}.
+\begin{table}[ht!b]
+	\centering
+	\begin{tabular}{|l||p{2.4cm}|p{2.4cm}|p{2.4cm}|p{2.4cm}|}
+		\hline 
+		& \textbf{Time} & \textbf{Reason} & \textbf{Level} & \textbf{Technique} \\ 
+		\hline 
+		\textbf{Monitoring} & Continuos & What to monitor & Identification of the levels & --- \\ 
+		\hline 
+		\textbf{Analyzing} & Algorithms depend on reactive or proactive dimension & Where to analyze & --- & --- \\ 
+		\hline 
+		\textbf{Planning} & --- & What should be influenced by planning & Adaptation plans address these levels & Plans for performing the techniques \\ 
+		\hline 
+		\textbf{Executing} & --- & --- & Execution of the change on the levels & Execution of the change on the levels \\ 
+		\hline 
+	
+	\end{tabular} 
+\caption[MAPE and Dimensions]{Relation of the MAPE Activities and the Dimensions}
+\label{tab:mape}
+\end{table}
+
+\section{Tele Assistance: A Self-Adaptive Service-Based System}
 
 \section{The SOLAR Framework}
 However working on the adaptability of a system can impact other quality attributes such as performance, reliability or maintainability and in the worst case improving adaptability can decrease part, if not all, of these attributes as stated in \cite{bass2003software}: \emph{quality attributes can never be achieved in isolation, the achievement of any one will have an effect, sometimes positive and sometimes negative, on the achievement of others}.

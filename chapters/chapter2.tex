@@ -188,35 +188,35 @@ This metric measures the number of used components for providing a given service
 \[ AAS \in \mathbb{N}^n |AAS_i = |UC_i|\]
 Quantifies how much adaptable a service is by counting the different alternatives to execute the service (1 no adaptable, $>$1 adaptable), where the service adaptability grows according to the number of components able to provide it. 
 
-Referring to the example in Figure \ref{fig:solar-arch-example}, we observe that $AAS = [1, 1, 2]$.
+\noindent Referring to the example in Figure \ref{fig:solar-arch-example}, we observe that $AAS = [1, 1, 2]$.
 
 \subsubsection{Relative adaptability of a service (RAS)}
 This metric measures the number of used components that provide a given service with respect to the number of components actually offering such service.
 \[ RAS \in \mathbb{Q}^n | RAS_i = \frac{|UC_i|}{|C_i|} \]
 It describes how each service stresses its adaptability choices and it informs how much more adaptable the service could be. RAS vector values near to one mean that the service is using almost all the adaptability potentially reachable. 
 
-Referring to the example in Figure \ref{fig:solar-arch-example}, we observe that $RAS = [1, 0.5, 0.6]$.
+\noindent Referring to the example in Figure \ref{fig:solar-arch-example}, we observe that $RAS = [1, 0.5, 0.6]$.
 
-\subsubsection{Mean	of absolute adaptability of services (MAAS)}
+\subsubsection{Mean of absolute adaptability of services (MAAS)}
 This metric measures the mean number of used components per service.
 \[ MAAS \in \mathbb{Q} | MAAS = \frac{\sum_{i=1}^{n} AAS_i}{n}  \]
-This metric offers insights into the mean size and effort needed to manage each service.
+It offers insights into the mean size and effort needed to manage each service.
 
-Referring to the example in Figure \ref{fig:solar-arch-example}, $MAAS = 4/3 = 1.3$. 
+\noindent Referring to the example in Figure \ref{fig:solar-arch-example}, $MAAS = 4/3 = 1.3$. 
 
 Architectures with more adaptable services have higher values of MAAS. Besides, a $MAAS > 1$ means that the architecture includes adaptable services (at least one of the components $AAS_i > 1$). For $MAAS \le 1$, there may be adaptable services or not (AAS should be checked in this case).
 
 \subsubsection{Mean of relative adaptability of services (MRAS)}
 This metric represents the mean of RAS.
 \[ MRAS \in \mathbb{Q} | MRAS = \frac{\sum_{i=1}^{n}RAS_i}{n}\]
-This metric informs about the mean utilization of the potential components for each service. Values of this metric range between zero and one.
+It informs about the mean utilization of the potential components for each service. Values of this metric range between zero and one.
 
-Referring to the example, $MRAS = (1 + 0.5 + 0.6)/3 = 0.72$.
+\noindent Referring to the example, $MRAS = (1 + 0.5 + 0.6)/3 = 0.72$.
 
 The higher the MRAS of an architecture, the more adaptable its services are, on average. The maximum value of this metric is obtained when $RAS_i = 1 \;\;\forall i \in [1, \dots, n]$, which is in turn obtained when all services are as much adaptable as possible because they use all the available components. Therefore, a value close to one for MRAS means that, on average, services are as much adaptable as possible. A value close to zero means that: 
 \begin{enumerate}
-	\item services can be much more adaptable (adding components not yet used)
-	\item different architecture alternatives with the same quantity of adaptability can be created
+	\item[\textbf{a)}] services can be much more adaptable (adding components not yet used)
+	\item[\textbf{b)}] different architecture alternatives with the same quantity of adaptability can be created
 \end{enumerate}
 
 \subsubsection{Level of system adaptability (LSA)}
@@ -224,7 +224,7 @@ This metric measures the number of components used to make up the system with re
 \[ LSA \in \mathbb{Q}{0..1} | LSA = \frac{\sum_{i=1}^{n}AAS_i}{\sum_{i=1}^{n}|C_i|} \]
 The value of this metric ranges between zero and one. For LSA, a value of one means that the system is using all existing components for each service, i.e., $AAS_i = |C_i | \forall i \in {1,\dots, n}$, and then its adaptability is already to the maximum. A value close to one means that the market offers few choices to increase the system architectural adaptability. When a new component is bounded to the architecture, LSA increases in a constant value ($1/\sum{{i=1}^{n}|C_i}$) irrespective of the number of components already considered for the same service.
 
-Referring to the example in Figure \ref{fig:solar-arch-example}, $LSA = 4/(1 + 2 + 3) = 0.6$.
+\noindent Referring to the example in Figure \ref{fig:solar-arch-example}, $LSA = 4/(1 + 2 + 3) = 0.6$.
 
 Table \ref{tab:solar-metrics-summary} summarizes the five metrics and their values for the example in Figure \ref{fig:solar-arch-example}.
 
@@ -250,3 +250,67 @@ Table \ref{tab:solar-metrics-summary} summarizes the five metrics and their valu
 	\label{tab:solar-metrics-summary}
 \end{table}
 
+\subsection{Relating adaptability to a system quality attribute}
+The analysis of the relation between system adaptability and quality attributes can give three different results as shown in Table \ref{tab:adapt-qual}.  In the rows we read that, when the adaptability increases then some quality attributes:
+\begin{itemize}
+	\item tend to increase their measured values
+	\item tend to decrease their measured values
+	\item are not affected. We are not interested in this group since we are focussed on the influence of adaptability on the requirement.
+\end{itemize}
+
+\noindent The columns in the table consider how the quality requirement is formulated:
+\begin{itemize}
+	\item as higher than, e.g., "system availability shall be higher than\dots"
+	\item as lower than, e.g., "system mean response time shall be lower than\dots"
+\end{itemize}
+
+Each region of interest in Table \ref{tab:adapt-qual} has been labeled as Helps or Hurts to indicate the effect of the adaptability upon the quality requirement. 
+
+\noindent The best cases are when the quality attribute completely depends on the adaptability such as:
+\begin{enumerate}
+	\item The higher the adaptability, the higher the quality attribute
+	\item The lower the adaptability, the lower the quality attribute
+\end{enumerate}
+
+In Figure \ref{fig:solar-inter-cases} are shown all the intermediate cases that can result mixing the two extreme cases above. The \emph{X} axis represents the adaptability value, The \emph{Y} axis represent the quality attribute. For each value of adaptability there are two extreme values:
+\begin{itemize}
+	\item $Q_{A_iU}$ is the maximum value of the quality attribute with respect to $A_i$
+	\item $Q_{A_iL}$ is the minimum value of the quality attribute with respect to $A_i$
+\end{itemize} 
+Between these extreme values there are all the architecture that have the same adaptability and intermediate quality attribute value. Among all the $Q_{A_iU}$ and $Q_{A_iL}$ in the graph, two of them have a particular meaning: $Adapt^+$ and $Adapt^-$.
+
+To describe the meaning of $Adapt^-$ and $Adapt^+$ we focus on parts (a) and (d) in Figure \ref{fig:solar-inter-cases}. $Adapt^-$ is the lowest $A_i$ for which we can find an architecture satisfying the requirement. $Adapt^+$ is the lowest $A_i$ whose bounds, $Q_{A_iU}$ and $Q_{A_iL}$, satisfy the requirement. These values indicate that to fulfill the requirement, the architecture must have at least adaptability $Adapt^-$, and, any architecture with at least $Adapt^+$ will also satisfy it. For adaptabilities between them, there will be architectures satisfying the requirement (those highlighted in the figure) and others that will not. 
+
+In parts (b) and (c) in Figure \ref{fig:solar-inter-cases} (regions where the adaptability Hurts), $Adapt^-$ is the threshold adaptability value for which any architecture with adaptability $A_i \le Adapt^-$ fulfills the requirement; and $Adapt^+$ is the maximum $A_i$ for which we know that exists some architecture that satisfies the requirement.
+
+\begin{table}[ht!b]
+	\centering
+	\begin{tabular}{lx{4cm}x{4cm}}
+		\firsthline
+		\multirow{2}{*}{When adaptability increases} & \multicolumn{2}{c}{Requirement formulated as} \\
+		\cline{2-3}
+		& \emph{Higher than} & \emph{Lower than} \\
+		\hline
+		The quality attribute value increases & Helps & Hurts \\
+		The	quality attribute value decreases & Hurts & Helps \\
+		The	quality attribute is not affected & \multicolumn{2}{c}{No effect}\\
+		\hline
+	\end{tabular}
+	\caption[Adaptability w.r.t. quality requirements]{Effect of adaptability on a measured quality requirement.\cite{solar}}
+	\label{tab:adapt-qual}
+\end{table}
+\begin{figure}[h]
+	\centerline
+	{\includegraphics[scale=0.55]{img/solar-inter-cases.png}}
+	\caption[Relations among adaptability and other quality attributes.]{Relations among adaptability and other quality attributes.\cite{solar}}
+	\label{fig:solar-inter-cases}
+\end{figure} 
+\section{Analysis of the approach and its limits}
+Both of these tools want to help the software architect in choosing the right set of components in order to satisfy the adaptability requirements and if possible other quality attributes. With the SOLAR framework all the possible architectures that satisfy the requisites are generated and the choice is left to the architect. This approach is for sure slower but is a valid tool to have an idea of the possible outcome and build an architecture from scratch. On the other side it presents some limitations presented in no particular order:
+\begin{itemize}
+	\item It analyzes all the architecture only with a static analysis using the component diagram.
+	\item All components are given equal importance thus the time a component is used and the number of usages per call is completely ignored.
+	\item It does not considers the probability of failure of a component at runtime.
+	\item Requires a lot of time to produce complete results.
+\end{itemize}
+In the next chapter\dots \color{red}TBA

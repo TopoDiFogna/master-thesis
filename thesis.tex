@@ -32,6 +32,8 @@
 \usepackage[toc]{appendix}
 \usepackage[bookmarks=true,pdftex=false,bookmarksopen=true,pdfborder={0,0,0},hidelinks]{hyperref}
 \usepackage{amssymb}
+\usepackage{array}
+\usepackage{multirow}
 %\usepackage{array}
 %\usepackage{epstopdf}
 %\usepackage{color}
@@ -63,6 +65,8 @@
 
 \hypersetup{pdftitle={Title}, pdfauthor={Paolo Paterna}}
 
+\newcolumntype{x}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}p{#1}} %column with specified width and centered
+
 \nobibliography*
 
 \department {Scuola di Ingegneria Industriale e dell'Informazione}
@@ -74,7 +78,7 @@
 \title{Title}
 \supervisor{Raffaela Mirandola}
 \tutor{Diego Perez-Palacin}
-\titleimage{img/logo_poli.eps}
+\titleimage{img/logo-poli.eps}
 \phdcycle{A.Y. 2017/2018}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

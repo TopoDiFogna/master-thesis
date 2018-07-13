@@ -29,7 +29,7 @@ To better understand how a SASS works we need to answer some simple questions:
 	\item How we achieve this goal?
 \end{itemize}
 
-During the past years have been developed some dimensions that help to answer all this simple questions: \emph{Time}, \emph{Reason}, \emph{Level}, \emph{Technique} and \emph{Adaptation Control} shown in figure \ref{fig:dimensions}.
+During the past years have been developed some dimensions that help to answer all this simple questions: \emph{Time}, \emph{Reason}, \emph{Level}, \emph{Technique} and \emph{Adaptation Control} shown in Figure \ref{fig:dimensions}.
 \begin{figure}[h]
 	\centerline
 	{\includegraphics[scale=0.50]{img/dimensions.png}}
@@ -57,7 +57,7 @@ The control unit needs a metric in order to decide how to adapt and in literatur
 Another aspect of the adaptation logic is the degree of decentralization. If we have a system with limited resources then a centralized adaptation logic has to be preferred but with greater systems a decentralized AL can improve performance and  every sub-system can communicate with another with different patterns of communication. Of course hybrid technique can be made mixing the previous approaches.
 
 \subsubsection{Adaptation Logic Issues}
-As said before a SASS is composed of managed resources and the adaptation logic; it can be represented by the tuple \texttt{SASS = (AL, MR)}. \emph{AL = $a_1$, \dots, $a_n$}, with $a_i$ representing a logic element,  monitors the environment (M), analyzes the data for change (A), plans adaptation (P) and control the execution of the adaptation (E): these are known as \emph{MAPE cycle} or \emph{MAPE functionality}\cite{vision-aut-comp}. \emph{MR = $mr_1$, \dots, $mr_n$}, with $mr_i$ representing a resource, is the set of resources such as hardware with software, smart-phones, robotics or unmanned vehicles. Figure  \ref{fig:sass} shows a SASS where the dashed line represent the system border.
+As said before a SASS is composed of managed resources and the adaptation logic; it can be represented by the tuple \texttt{SASS = (AL, MR)}. \emph{AL = $a_1$, \dots, $a_n$}, with $a_i$ representing a logic element,  monitors the environment (M), analyzes the data for change (A), plans adaptation (P) and control the execution of the adaptation (E): these are known as \emph{MAPE cycle} or \emph{MAPE functionality}\cite{vision-aut-comp}. \emph{MR = $mr_1$, \dots, $mr_n$}, with $mr_i$ representing a resource, is the set of resources such as hardware with software, smart-phones, robotics or unmanned vehicles. Figure \ref{fig:sass} shows a SASS where the dashed line represent the system border.
 \begin{figure}[h]
 	\centerline
 	{\includegraphics[scale=0.55]{img/managed-resources.png}}
@@ -152,6 +152,101 @@ However working on the adaptability of a system can impact other quality attribu
 
 Find a balance between these quality attributes is often a challenging task because sometimes they're conflicting each other, e.g. lower cost and higher availability, so find an adaptability value that can meet all the requisites is, as a consequence, a challenging task too.
 
+The SOLAR (SOftware quaLities and Adaptability Relationships) framework \cite{solar} helps the software architect to select the best set of components in order to fulfill the requirements trying to achieve a minimum level for some quality attribute such as availability and/or cost. This tool helps the software architect to build a suitable architecture for his needs but is not a \emph{"solution for every situation"}.
 
+\subsection{The SOLAR Metrics}
+All the metrics in SOLAR are greatly inspired by \cite{po-metrics} and are all defined at an architecture level and static perspective. 
 
+To define them, the software architecture relies on a component-and-connector view (C\&C view). In this C\&C view \emph{components} are principal computational elements present at runtime. The representation uses the UML diagram. In Figure \ref{fig:comp-example} is shown an example of component and their respective connections.
+
+\begin{figure}[h]
+	\centerline
+	{\includegraphics[scale=0.55]{img/solar-comp-example.png}}
+	\caption[SOLAR Components example]{(a) A set of components and their interfaces and (b) the C\&C view of the components in (a).\cite{solar}}
+	\label{fig:comp-example}
+\end{figure}
+
+Components have interfaces attached to ports. \emph{Connectors} are pathways of interaction between components and also have interfaces or roles. In Figure \ref{fig:solar-arch-example} is shown an example of an architecture, the used components are highlighted in gray; this example will be used to explain the metrics later in this chapter.
+
+\begin{figure}[h]
+	\centerline
+	{\includegraphics[scale=0.55]{img/solar-arch-example.png}}
+	\caption[SOLAR example architecure]{C\&C view: discovered components and used components (in gray).\cite{solar}}
+	\label{fig:solar-arch-example}
+\end{figure}
+
+In the architecture of Figure \ref{fig:solar-arch-example}:
+\begin{itemize}
+	\item the service S1 is provided by component C11 that is unique and must be in use. S1 is the provided service of this architecture.
+	\item component C11 requires S2 and S3 services.
+	\item service S2 is provided by C21 and C22 where only C21 is in use.
+	\item service S3 is provided by C31, C32 and C33 but only C31 and C32 are in use.
+\end{itemize}
+
+\subsubsection{Absolute adaptability of a service (AAS)}
+This metric measures the number of used components for providing a given service.
+\[ AAS \in \mathbb{N}^n |AAS_i = |UC_i|\]
+Quantifies how much adaptable a service is by counting the different alternatives to execute the service (1 no adaptable, $>$1 adaptable), where the service adaptability grows according to the number of components able to provide it. 
+
+Referring to the example in Figure \ref{fig:solar-arch-example}, we observe that $AAS = [1, 1, 2]$.
+
+\subsubsection{Relative adaptability of a service (RAS)}
+This metric measures the number of used components that provide a given service with respect to the number of components actually offering such service.
+\[ RAS \in \mathbb{Q}^n | RAS_i = \frac{|UC_i|}{|C_i|} \]
+It describes how each service stresses its adaptability choices and it informs how much more adaptable the service could be. RAS vector values near to one mean that the service is using almost all the adaptability potentially reachable. 
+
+Referring to the example in Figure \ref{fig:solar-arch-example}, we observe that $RAS = [1, 0.5, 0.6]$.
+
+\subsubsection{Mean	of absolute adaptability of services (MAAS)}
+This metric measures the mean number of used components per service.
+\[ MAAS \in \mathbb{Q} | MAAS = \frac{\sum_{i=1}^{n} AAS_i}{n}  \]
+This metric offers insights into the mean size and effort needed to manage each service.
+
+Referring to the example in Figure \ref{fig:solar-arch-example}, $MAAS = 4/3 = 1.3$. 
+
+Architectures with more adaptable services have higher values of MAAS. Besides, a $MAAS > 1$ means that the architecture includes adaptable services (at least one of the components $AAS_i > 1$). For $MAAS \le 1$, there may be adaptable services or not (AAS should be checked in this case).
+
+\subsubsection{Mean of relative adaptability of services (MRAS)}
+This metric represents the mean of RAS.
+\[ MRAS \in \mathbb{Q} | MRAS = \frac{\sum_{i=1}^{n}RAS_i}{n}\]
+This metric informs about the mean utilization of the potential components for each service. Values of this metric range between zero and one.
+
+Referring to the example, $MRAS = (1 + 0.5 + 0.6)/3 = 0.72$.
+
+The higher the MRAS of an architecture, the more adaptable its services are, on average. The maximum value of this metric is obtained when $RAS_i = 1 \;\;\forall i \in [1, \dots, n]$, which is in turn obtained when all services are as much adaptable as possible because they use all the available components. Therefore, a value close to one for MRAS means that, on average, services are as much adaptable as possible. A value close to zero means that: 
+\begin{enumerate}
+	\item services can be much more adaptable (adding components not yet used)
+	\item different architecture alternatives with the same quantity of adaptability can be created
+\end{enumerate}
+
+\subsubsection{Level of system adaptability (LSA)}
+This metric measures the number of components used to make up the system with respect to the number of components that the most adaptable architecture would use.
+\[ LSA \in \mathbb{Q}{0..1} | LSA = \frac{\sum_{i=1}^{n}AAS_i}{\sum_{i=1}^{n}|C_i|} \]
+The value of this metric ranges between zero and one. For LSA, a value of one means that the system is using all existing components for each service, i.e., $AAS_i = |C_i | \forall i \in {1,\dots, n}$, and then its adaptability is already to the maximum. A value close to one means that the market offers few choices to increase the system architectural adaptability. When a new component is bounded to the architecture, LSA increases in a constant value ($1/\sum{{i=1}^{n}|C_i}$) irrespective of the number of components already considered for the same service.
+
+Referring to the example in Figure \ref{fig:solar-arch-example}, $LSA = 4/(1 + 2 + 3) = 0.6$.
+
+Table \ref{tab:solar-metrics-summary} summarizes the five metrics and their values for the example in Figure \ref{fig:solar-arch-example}.
+
+\begin{table}[ht!b]
+	\centering
+	\begin{tabular}{|l|l|l|l|}
+		\hline 
+		Name & Range & Value & Example in Fig. \ref{fig:solar-arch-example} \\ 
+		\hline 
+		AAS & $\mathbb{N}^n$ & ${|UC_i|}$ & $[1,1,2]$ \\
+
+		RAS & $\mathbb{Q}^n \in {0,\dots,1}$ & ${\frac{|UC_i|}{|C_i|}}$ & $[1,0.5,0.6]$ \\ 
+
+		MAAS & $\mathbb{Q}_+$ & $\frac{\sum_{i=1}^{n}AAS_i}{n}$ & $1.3$ \\ 
+
+		MRAS & $\mathbb{Q}^n \in {0,\dots,1}$ & $\frac{\sum_{i=1}^{n}RAS_i}{n}$ & $0.72$ \\ 
+		
+		LSA & $\mathbb{Q}^n \in {0,\dots,1}$ & $\frac{\sum_{i=1}^{n}AAS_i}{\sum_{i=1}^{n}|C_i|}$ & $0.6$ \\
+		\hline 
+		
+	\end{tabular} 
+	\caption[SOLAR Metrics]{Summary of the metrics.\cite{solar}}
+	\label{tab:solar-metrics-summary}
+\end{table}
 

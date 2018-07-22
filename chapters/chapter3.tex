@@ -12,7 +12,7 @@ To overcome this problem some more new metrics have been defined that analyze th
 
 The final objective is to define some adaptability metrics for the architecture as a whole and for every service that the architecture uses. In a more specific way what is shown is how important is every service in a architecture and as a consequence, how important is every component.
 
-\section{Systems and software Quality Requirements and Evaluation (SQuaRE)}
+\section{Systems and software Quality Requirements and Evaluation}
 \label{sec:square}
 \textbf{ISO/IEC 25010}, \emph{Systems and software engineering — Systems and software Quality Requirements and Evaluation (SQuaRE)}\cite{iso/iec-25010} is an international standard for the evaluation of software quality that replaced the previous \textbf{ISO/IEC 9126} \emph{Software engineering — Product quality standard}\cite{iso/iec-9126}.
 
@@ -73,13 +73,9 @@ In table \ref{tab:new-metrics-summary} are summarized all the terms used in the 
 		\hline
 		$N_{exec_{PS_i}}$ &  Number of executions of provided service \emph{i} \\
 		\hline
-		$$ & \\
+		$TimeAction_{S_i}$ & The time a service \emph{i} is working \\
 		\hline
-		$$ & \\
-		\hline
-		$$ & \\
-		\hline
-		$$ & \\
+		$AV_{C_i}$ & Intrinsic availability of component \emph{i} \\
 		\hline
 	\end{tabular} 
 	\caption[New Metrics]{Summary of the metrics.}
@@ -88,46 +84,67 @@ In table \ref{tab:new-metrics-summary} are summarized all the terms used in the 
 
 \subsection{Components}
 \subsubsection{Fitness ratio w.r.t. availability}
-This metric Defines the ratio between a component availability and the target system availability. This result is from the hypothesis that a component with a high availability can provide, at first glance, more guarantees of functioning. 
-\[ FRA \in \mathbb{R}^+_0 | FRA_{C_i} = \frac{1 - availability_{target}}{1- availability_{C_i}} \]
+This metric defines the ratio between a component availability and the target system availability. This result is from the hypothesis that a component with a high availability can provide, at first glance, more guarantees of functioning. 
+\[ FRA_{C_i} \in \mathbb{R}^+_0 \; | \; FRA_{C_i} = \frac{1 - availability_{target}}{1- availability_{C_i}} \]
 
-This means that if the result is $\ge 1$ the component satisfies the target requisite and as a consequence it can work for longer improving the availability of the service it offers. A value $\ge 0 $ and $<1$ indicates that this component is prone to failure more frequently than how is requested.
+This means that if the result is $\ge 1$ the component satisfies the target requisite and as a consequence it can work for a longer time improving the availability of the service it offers. 
+
+A value $\ge 0 $ and $<1$ indicates that this component is prone to failure more frequently than how is requested in the architecture.
 
 \subsubsection{Fitness ratio w.r.t. cost}
 Defines the ratio between a component cost and the system target cost. 
 
-\[ FRC \in  \mathbb{R}^+_0 | FRC_{C_i} = \frac{cost_{target}}{cost_{C_i}}\]
+\[ FRC_{C_i} \in \mathbb{R}^+_0 \; | \; FRC_{C_i} = \frac{cost_{target}}{cost_{C_i}}\]
 
-With the same component cost, if the system target cost grows higher the Fitness Ratio w.r.t. Cost becomes bigger. This implies that the bigger the component cost and the system target cost gap is, the more can be saved from buying this component w.r.t. the maximum budget invested in buying the component.
+With the same component cost, if the system target cost grows higher the Fitness Ratio w.r.t. Cost becomes bigger. This implies that the bigger the component and the system target cost gap is, the more can be saved from buying this component w.r.t. the maximum budget invested in buying all the components.
 
 \subsubsection{Weight of residence time}
 Calculates which fraction of time a component is running w.r.t total running time of the architecture.
 
-\[ T_{C_i} \in \mathbb{R}^+ | T_{C_i} = \sum_{i=0}^{n} N_{exec_{PS_i}} * T_{PS_i} \]
+\[ T_{C_i} \in \mathbb{R}^+ \; | \; T_{C_i} = \sum_{i=0}^{n} N_{exec_{PS_i}} * T_{PS_i} \]
 
-\[ TotTime \in \mathbb{R^+} | TotTime = \sum_{i=0}^{n}N_{exec_{S_i}} * T_{S_i} \]
+\[ TotTime \in \mathbb{R^+} \; | \; TotTime = \sum_{i=0}^{n}N_{exec_{S_i}} * T_{S_i} \]
 
-\[ WRT \in \mathbb{R}^+ | WRT = \frac{T_{C_i}}{TotTime} \]
+\[ WRT \in \mathbb{R}^+ \; | \; WRT = \frac{T_{C_i}}{TotTime} \]
 
-Higher results means that the component runs more than others.
+Higher results means that the component runs more than others, thus is a important piece of the architecture. A failure in this component can compromise the functioning of the architecture in a bigger way than a failure of other components.
 
 \subsection{Services}
 \subsubsection{Number of executions}
 Defines the number of times a service is executed.
 
-\[ N_{exec_{S_i}} \in \mathbb{N} | \forall PS_i \;\, N_{exec_{S_i}} = \sum_{i=0}^{n} P_{exec_{S_i}} * ExecPerCall_{S_i} * N_{exec_{PS_i}} \]
+\[ N_{exec_{S_i}} \in \mathbb{N} \; | \; \forall PS_i \;\, N_{exec_{S_i}} = \sum_{i=0}^{n} P_{exec_{S_i}} * ExecPerCall_{S_i} * N_{exec_{PS_i}} \]
 
 \subsubsection{Probability to be running}
 Defines the probability that a given service is running in a given moment.
-\[ PTBR \in [0..1] | PTBR =  \frac{{N_{exec_{S_i}}}}{ \sum_{i=0}^{n}  N_{exec_{S_i}}} \]
+
+\[ PTBR_{S_i} \in [0..1] \; | \; PTBR_{S_i} =  \frac{{N_{exec_{S_i}}}}{ \sum_{i=0}^{n}  N_{exec_{S_i}}} \]
 
 \subsubsection{In Action}
 This metrics calculates the probability to find a given service active considering the dynamic analysis of the architecture.
-\[ TimeAction_{S_i} \in \mathbb{R}^+ | \sum_{j=0}^{n} T_{exec{S_i}Path_j} * P_{exec_{S_i}} \]
-\[ InAction \in [0..1] | \frac{TimeAction_{S_i}}{{\sum_{i=0}^n}TimeAction_{S_i}} \]
-It considers all the possible paths available in the selected workflow.
+
+\[ TimeAction_{S_i} \in \mathbb{R}^+ \; | \; \sum_{j=0}^{n} T_{exec{S_i}Path_j} * P_{exec_{S_i}} \]
+\[ InAction_{S_i} \in [0..1] \; | \; InAction_{S_i} = \frac{TimeAction_{S_i}}{{\sum_{i=0}^n}TimeAction_{S_i}} \]
+
+It considers all the possible paths available in the selected workflow; in this way a workflow with an \texttt{Alt} and/or \texttt{Opt} block in the sequence diagram can be represented in a correct way.
 
 \subsection{Architecture}
 \subsubsection{Global availability of system}
+Defines the availability of the components that are in the architecture as a probability that are all active in a given instant.
+\[ GAS \in \mathbb{R}^+_0 \; | \; \forall C_i \; GAS = \prod_{i=0}^{n} FRA_{C_i} \]
+A better availability of a component in the architecture implies a better Fitness Ratio w.r.t. Availability that is reflected in a better global availability. Higher numbers mean better availability.
 \subsubsection{Global cost of system}
+Defines the total cost of the components in an architecture w.r.t. the cost of each individual component.
+\[ GCS \in \mathbb{R}^+_0 \; | \; \forall C_i GCS = \sum_{i=0}^{n} FRC_{C_i} \]
 \subsubsection{Total Static Availability}
+This methods calculate the Availability of an architecture without considering actual workflows of the architecture, so it uses the component diagram. It considers all components as used and considers a call to the main service to use always all the components.
+
+Given that $S_x$ is the main offered service we can calculate the availability of such service as total availability of the system.
+\begin{itemize}
+\item If a component is terminal, so doesn't require any service:
+\[ Av(C_{i}) \in \mathbb{R}^+_0 \; | \; Av(C_{i}) = AV_{C_{i}} \]
+\item  If a component is not terminal and requires some service $S_k$:
+\[ Av(C_{i}) \in \mathbb{R}^+_0 \; | \; \forall S_k \; Av(C_{i}) = AV_{C_{i}}*\prod_{k=0}^{n} ((1-p_{S_k}^{C_{i}}) + p_{S_k}^{C_{i}} * (AV_{S_k})^{N_{S_k}^{C_i}}) \]
+\end{itemize}
+With these we can calculate the availability of $S_x$ thus the availability of the architecture with $C_i$ being any component that offers $S_x$.
+\[ Av(S_x) \in \mathbb{R}^+_0 \; | \; \exists C_i \; Av(S_x) = 1-\prod_{i=0}^{n}(1-Av_{C_i}) \]

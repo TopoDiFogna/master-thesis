@@ -1,2 +1,26 @@
 \chapter{The Adaptability Analyzer Software}
 \label{cap:design}
+
+To provide the software engineer a tool that can ease his work a new software has been developed ad hoc, called Adaptability Analyzer Tool.
+
+This tool has been developed from scratch with some goals in mind and puts together the previous SOLAR\cite{solar} metrics with the new metrics presented in Chapter \ref{cap:quality-metrics}. All the goals are explained in the following section.
+
+\section{Adapt Analyzer Goals}
+\subsection{User Point of View}
+From a usability point of view the first goal of this software was to be a tool that can be used by every software engineer without knowing the underlying programming language or how the code is structured; to achieve this I've chosen to provide the software with a Graphical User Interface (GUI) that doesn't require any programming skill to be used.
+
+Another goal was that creating an architecture and then perform calculations should be made easy for everyone, not only for the software engineer, so every result is clearly visible in the GUI and, where possible, numeric results are supported by Cartesian graphs and/or visual representations.
+
+How these goal are achieved is explained in the following section.
+\subsection{Programmer Point of View}
+From a programming point of view, instead, the software has to be portable so it can be run on most computers, without strict limitations on operating systems and/or hardware. This is achieved by using the Java programming language\cite{java-se}. 
+
+With this programming language the choice on how to develop the GUI were only two framework (discarding the old AWT\cite{awt}): Swing\cite{swing} or JavaFX\cite{javafx}. I've chosen to use the newer JavaFX because it should become the new standard for developing Java applications and it provides a set of useful API to the scope of this software.
+
+Others programming goals were to provide a software that can have a small memory footprint and low CPU usage but that can provide results in a meaningful time frame; this is achieved by using common design patterns with efficient algorithms in term of time and memory complexity.
+
+The last goal was to make the user be able to export and import his architecture, thus interrupting and resuming his work on another machine is made easy; this is accomplished by serializing the architecture in JSON files.
+
+More details on programming choices can be found in the Appendix \ref{app:usermanual}
+
+

@@ -13,7 +13,7 @@ From a usability point of view the first goal of this software was to be a tool 
 
 Another goal was that creating an architecture and then perform calculations should be made easy for everyone, not only for the software engineer, so every result is clearly visible in the GUI and, where possible, numeric results are supported by Cartesian graphs and/or visual representations.
 
-\subsection{Programmer Point of View}
+\subsection{Developer Point of View}
 From a programming point of view, instead, the software has to be portable so it can be run on most computers, without strict limitations on operating systems and/or hardware. This is achieved by using the Java programming language\cite{java-se}. 
 
 With this programming language the choices on how to develop the GUI were only two framework (discarding the old AWT\cite{awt}): Swing\cite{swing} or JavaFX\cite{javafx}. I've chosen to use the newer JavaFX because it should become the new standard for developing Java graphical applications and it provides a set of useful API to the scope of this software.
@@ -173,7 +173,7 @@ Once selected a service its details are displayed on the right; if some detail d
 
 The Workflow tab allows to create different workflows for the architecture; it is shown in Figure \ref{fig:workflow-path1}. Every workflow is represented as a Sequence Diagram from the UML Standard \cite{uml}. Each workflow has one or more paths that can be created using the corresponding button below the path list. Every workflow or path can be deleted by right clicking on it and selecting delete from the context menu. 
 
-If an \texttt{Alt} and/or \texttt{Opt} block are needed that can be specified by additional paths which on creation require an execution probability.
+If an \texttt{Alt} and/or \texttt{Opt} block are needed that can be specified by additional paths which on creation require an execution probability. The only limitation is that \texttt{Alt} and \texttt{Opt} blocks can't be nested in the actual implementation.
 
 The execution probability is shown on top of the left side of the tab and below that is possible to add a message with the corresponding button. The window that allows to create a message is shown in figure \ref{fig:message}
 
@@ -204,7 +204,7 @@ The last tab is the Level of System Adaptability Tab. In this tab it is possible
 
 Clicking an adaptability value in the list on the left or a dot in the graph selects a possible adaptability value and displays on the right the minimum and maximum cost for that adaptability and the list of components that are in the architecture with the selected adaptability as shown in Figure \ref{fig:adapt-wrt-avail-comp}. 
 
-Selecting a component the component tab is shown.
+Selecting a component the component tab is shown with te selected component visible.
 
 \begin{figure}[!h]
 	\centerline

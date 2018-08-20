@@ -28,7 +28,7 @@ More details on programming choices can be found in the Appendix \ref{app:userma
 
 When launched, the tool presents a welcome page with the main menu accessible in the top left corner. From this menu it is possible to create a new architecture, either from scratch or generating one from the provided generator, or to import a previously created one as shown in Figure \ref{fig:welcome-screen-menu}
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\centerline
 	{\includegraphics[scale=0.50]{img/welcome_screen_menu.png}}
 	\caption[Tool welcome screen with menu]{The main window of the tool that welcomes the user at launch with menu open.}
@@ -37,21 +37,21 @@ When launched, the tool presents a welcome page with the main menu accessible in
 
 When creating a new architecture from scratch the architecture's name is required as shown in Figure \ref{fig:new-arch} and then the main tool window, with the components tab open, is shown as in Figure \ref{fig:comp-details}. 
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\centerline
 	{\includegraphics[scale=0.80]{img/new_arch.png}}
 	\caption[New architecture window]{The new architecture window requesting only a name.}
 	\label{fig:new-arch}
 \end{figure}
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\centerline
 	{\includegraphics[scale=0.6]{img/gen_arch.png}}
 	\caption[Generate architecture window]{The window that allow to generate an architecture.}
 	\label{fig:gen-arch}
 \end{figure}
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\centerline
 	{\includegraphics[scale=0.50]{img/comp_details.png}}
 	\caption[Component details window]{The main tool window showing all the component details.}
@@ -102,7 +102,7 @@ In this case the architecture is named \emph{Arch 1} and the component \emph{C3-
 		\hline
 		
 	\end{tabular} 
-	\caption[Generator parameters]{The parameters required by the architecture generator.}
+	\caption[Component parameters]{The parameters required by the component creator.}
 	\label{tab:comp-details}
 \end{table}
 
@@ -110,7 +110,7 @@ If the top fields, \emph{System Target Cost} and \emph{System Target Availabilit
 
 It is also possible to add a new component or modify an existing one by pressing the respective button under the components list; in this case the window that is opened is the same but in case of modifying a component the fields are already filled as shown in Figure \ref{fig:add-modif-comp}
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\centerline
 	{\includegraphics[scale=0.6]{img/add_modif_comp.png}}
 	\caption[Add/Modify Component]{The window that is shown when adding or modifying a component.}
@@ -123,7 +123,7 @@ From the top menu, in the \emph{View} section, it is possible to view a graphica
 
 The nodes can be rearranged inside the window by dragging and dropping them.
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\centerline
 	{\includegraphics[scale=0.50]{img/view_arch.png}}
 	\caption[Architecture graphical representation]{The graphical representation of the architecture in example.}
@@ -152,19 +152,19 @@ Once selected a service its details are displayed on the right; if some detail d
 		\hline
 		
 	\end{tabular} 
-	\caption[Generator parameters]{The parameters required by the architecture generator.}
+	\caption[Service parameters]{The parameters required by the service creator.}
 	\label{tab:serv-details}
 \end{table}
 
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\centerline
 	{\includegraphics[scale=0.50]{img/serv_details.png}}
 	\caption[Service details tab]{The main tool window showing all the service details.}
 	\label{fig:serv-details}
 \end{figure}
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\centerline
 	{\includegraphics[scale=0.6]{img/add_serv.png}}
 	\caption[Add service window]{The window that is shown when adding a service.}
@@ -179,14 +179,14 @@ The execution probability is shown on top of the left side of the tab and below 
 
 To delete a message and all its successor just click on the arrow.
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\centerline
 	{\includegraphics[scale=0.50]{img/work1path1.png}}
 	\caption[Workflows tab]{The main tool window showing workflows, paths and the sequence diagram.}
 	\label{fig:workflow-path1}
 \end{figure}
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\centerline
 	{\includegraphics[scale=0.6]{img/message.png}}
 	\caption[Add path window]{The window that is shown when adding path.}
@@ -195,7 +195,7 @@ To delete a message and all its successor just click on the arrow.
 
 The last tab is the Level of System Adaptability Tab. In this tab it is possible to calculate all possible architectures that can exists with the given components and calculate how the cost varies with respect to the adaptability as shown in Figure \ref{fig:adapt-wrt-avail}. 
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\centerline
 	{\includegraphics[scale=0.50]{img/adapt_wrt_avail.png}}
 	\caption[Add path window]{The window that is shown when adding path.}
@@ -206,7 +206,7 @@ Clicking an adaptability value in the list on the left or a dot in the graph sel
 
 Selecting a component the component tab is shown with te selected component visible.
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\centerline
 	{\includegraphics[scale=0.50]{img/adapt_wrt_avail_comp.png}}
 	\caption[Add path window]{The window that is shown when adding path.}

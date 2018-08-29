@@ -3,9 +3,9 @@
 
 \section{Self-Adaptive Software Systems}
 \label{sec:sas}
-In modern-day applications, software complexity has extremely increased thanks to the spread of highly available and faster wireless connection such as in the Internet of Things (IoT) ambit. Since software is often deployed in dynamic contexts, where requirements, environment assumptions and usage profiles varies continuously, software complexity increased over time to the point where it is often composed by a number of sub-components and/or sub-services that work together in order to offer a service to the users. This is the case of service-oriented applications -- also called Service Based Systems (SBS) -- that are composed by multiple \emph{services} and \emph{components}. In these systems, services offered by third-party providers are dynamically composed into workflows to deliver complex functionalities, so SBSs rely on self adaptation to cope with the uncertainties associated with third-party services as the loose coupling of services makes a reconfiguration feasible. Without adaptation, the application is prone to degraded performance  because of faulty components, messages lost between services or delays due to an increasing number of users.
+In modern-day applications, software complexity has extremely increased thanks to the spread of highly available and faster wireless connection such as in the Internet of Things (IoT) ambit. Since software is often deployed in dynamic contexts, where requirements, environment assumptions and usage profiles vary continuously, software complexity increased over time to the point where it is often composed by a number of sub-components and/or sub-services that work together in order to offer a service to the users. This is the case of service-oriented applications -- also called Service Based Systems (SBS) -- that are composed by multiple \emph{services} and \emph{components}. In these systems, services offered by third-party providers are dynamically composed into workflows to deliver complex functionalities, so SBSs rely on self adaptation to cope with the uncertainties associated with third-party services as the loose coupling of services makes a reconfiguration feasible. Without adaptation, the application is prone to degraded performance  because of faulty components, messages lost between services or delays due to an increasing number of users.
 
-During the past decade a lot of research has been made in this scope but the engineering of adaptive systems remains a incredible challenge.\cite{soft-eng-for-sas-2} In order to solve the problem, \textbf{Self-Adapting Software Systems (SASS)} are born. These are flexible systems that can adapt themselves to their contextual needs and can do so with the highest performance and availability. General discussion concerning the issue and the state of the art in the design and implementation have been presented.\cite{soft-eng-for-sas-2}\cite{survey-aut-comp}\cite{self-adap-soft}\cite{soft-eng-for-sas-1}\cite{soft-eng-for-sas-3}\cite{arch-based-appr-to-sas}\cite{sas-quant-ver} 
+During the past decade a lot of research has been made in this scope but the engineering of adaptive systems remains an incredible challenge\cite{soft-eng-for-sas-2}. In order to solve the problem, \textbf{Self-Adapting Software Systems (SASS)} are born. These are flexible systems that can adapt themselves to their contextual needs and can do so with the highest performance and availability. General discussion concerning the issue and the state of the art in the design and implementation have been presented\cite{soft-eng-for-sas-2}\cite{survey-aut-comp}\cite{self-adap-soft}\cite{soft-eng-for-sas-1}\cite{soft-eng-for-sas-3}\cite{arch-based-appr-to-sas}\cite{sas-quant-ver}.
 
 These kind of systems have some fundamental properties called auto-managing that are:
 \begin{itemize}
@@ -22,11 +22,11 @@ All these properties can be grouped in two more abstract concepts which are self
 To better understand how a SASS works we need to answer some simple questions:
 \begin{itemize}
 	\item Who is adapting?
-	\item Which adaptation is required?
-	\item When is necessary to adapt?
-	\item Where is needed to change something?
-	\item Why is needed an adaptation?
-	\item How we achieve this goal?
+	\item What adaptation is required?
+	\item When it is necessary to adapt?
+	\item Where it is needed to change something?
+	\item Why it is needed an adaptation?
+	\item How do we achieve this goal?
 \end{itemize}
 
 During the past years have been developed some dimensions that help to answer all this simple questions: \emph{Time}, \emph{Reason}, \emph{Level}, \emph{Technique} and \emph{Adaptation Control} shown in Figure \ref{fig:dimensions}.
@@ -39,20 +39,20 @@ During the past years have been developed some dimensions that help to answer al
 
 \textbf{Who is adapting?} As the name suggests, it's the system itself that changes something in order to preserve some given constraint.
 
-\textbf{Which adaptation is required?} The \emph{Technique} dimension is the one that answers this question in fact the software engineer can change either the parameters or the system can be considered as a set of components. The former case allows to fine tuning the system at the expense of an higher complexity, the latter is called composite vision and permits the systems to cooperate exchanging algorithms and much more important, reusing components which improve performance because failed or defected components can be replaced.
+\textbf{What adaptation is required?} The \emph{Technique} dimension is the one that answers this question in fact the software engineer can change either the parameters or the system can be considered as a set of components. The former case allows to fine tuning the system at the expense of an higher complexity, the latter is called composite vision and permits the systems to cooperate exchanging algorithms and much more important, reusing components which improve performance because failed or defected components can be replaced.
 
-\textbf{When is necessary to adapt?} The \emph{Time} dimension is crucial in this situation. There are three typical approaches: the reactive one is the more traditional one which states that an adaptation is needed only after a causative event. The other two approaches are more interesting and they are predictive and proactive. The former studies the system before any event and calculate the need of an adaptation, the latter applies and adaptation despite an event and improves the performance. From the user perspective the proactive approach is the best because it doesn't interrupt the operation of the system in any load but it is the more complicated to implement. Monitoring continuously the system is a costly task to do, on the other side an adaptive monitoring is simple that analyze only specific aspect and/or resources and intervenes only if needed.
+\textbf{When it is necessary to adapt?} The \emph{Time} dimension is crucial in this situation. There are three typical approaches: the reactive one is the more traditional one which states that an adaptation is needed only after a causative event. The other two approaches are more interesting and they are predictive and proactive. The former studies the system before any event and calculate the need of an adaptation, the latter applies and adaptation despite an event and improves the performance. From the user perspective the proactive approach is the best because it doesn't interrupt the operation of the system in any load but it is the more complicated to implement. Monitoring continuously the system is a costly task to do, on the other side an adaptive monitoring is simple that analyze only specific aspect and/or resources and intervenes only if needed.
 
-\textbf{Where is needed to change something?} In general a SASS is composed by two main part: the the Adaptability Logic (AL) and the Managed Resource (MR). The former in general doesn't change, the latter is composed at the base of the hardware and of the software such as the operating system or, in case of distributed systems, the middleware that control the hardware; at a higher level of the application. These are the parts that require adaptation. To answer this question is needed to decide at which level the operation has to be applied without neglecting the relationship between the MR and the AL which is composed by the network that connects them and/or the view of the communication patterns. Thus \emph{Level} is the considered dimension.
+\textbf{Where it is needed to change something?} In general a SASS is composed by two main part: the the Adaptability Logic (AL) and the Managed Resource (MR). The former in general doesn't change, the latter is composed at the base of the hardware and of the software such as the operating system or, in case of distributed systems, the middleware that control the hardware; at a higher level of the application. These are the parts that require adaptation. To answer this question is needed to decide at which level the operation has to be applied without neglecting the relationship between the MR and the AL which is composed by the network that connects them and/or the view of the communication patterns. Thus \emph{Level} is the considered dimension.
 
-\textbf{Why is needed an adaptation?} In this case, \emph{Reason} is the right dimension. There can be one or more reason because a system needs adaptation such as a change in the available resources, a change in the environment or a change in the user base of the system.
+\textbf{Why it is needed an adaptation?} In this case, \emph{Reason} is the right dimension. There can be one or more reason because a system needs adaptation such as a change in the available resources, a change in the environment or a change in the user base of the system.
 
-\textbf{How we achieve this goal?} The answer to this question is more complicated than the others because it needs a new topic called \emph{Adaptation Control}.
+\textbf{How do we achieve this goal?} The answer to this question is more complicated than the others because it needs a new topic called \emph{Adaptation Control}.
 
 \subsection{Adaptation Control}
 In the literature can be found 2 approaches: the \emph{internal approach} that intertwine the adaptation logic with the system resources, which has problems with the maintainability and scalability of the system, and the \emph{external approach} that splits the system into adaptation logic and managed resources, which increases maintainability and scalability through modularization.
 
-The control unit needs a metric in order to decide how to adapt and in literature are present different metrics: models, rules and policies, goal or utility functions \cite{autonomic-computing}.
+The control unit needs a metric in order to decide how to adapt and in literature different metrics are present: models, rules and policies, goal or utility functions \cite{autonomic-computing}.
 
 Another aspect of the adaptation logic is the degree of decentralization. If we have a system with limited resources then a centralized adaptation logic has to be preferred but with greater systems a decentralized AL can improve performance and  every sub-system can communicate with another with different patterns of communication. Of course hybrid technique can be made mixing the previous approaches.
 
@@ -86,25 +86,26 @@ The dimension can therefore be mapped to the MAPE functionalities as shown in ta
 \end{table}
 
 \section{The SOLAR Framework}
-However working on the adaptability of a system can impact other quality attributes such as performance, reliability or maintainability and in the worst case improving adaptability can decrease part, if not all, of these attributes as stated in \cite{bass2003software}: \emph{quality attributes can never be achieved in isolation, the achievement of any one will have an effect, sometimes positive and sometimes negative, on the achievement of others}.
+Working on the adaptability of a system can impact other quality attributes such as performance, reliability or maintainability and in the worst case improving adaptability can decrease part, if not all, of these attributes as stated in \cite{bass2003software}: \emph{quality attributes can never be achieved in isolation, the achievement of any one will have an effect, sometimes positive and sometimes negative, on the achievement of others}.
 
 Find a balance between these quality attributes is often a challenging task because sometimes they're conflicting each other, e.g. lower cost and higher availability, so find an adaptability value that can meet all the requisites is, as a consequence, a challenging task too.
 
 The SOLAR (SOftware quaLities and Adaptability Relationships) framework \cite{solar} helps the software architect to select the best set of components in order to fulfill the requirements trying to achieve a minimum level for some quality attribute such as availability and/or cost. This tool helps the software architect to build a suitable architecture for his needs but is not a \emph{"solution for every situation"}.
 
 \subsection{The SOLAR Metrics}
+\label{subsec:solar-metrics}
 All the metrics in SOLAR are greatly inspired by \cite{po-metrics} and are all defined at an architecture level and static perspective. 
 
-To define them, the software architecture relies on a component-and-connector view (C\&C view). In this C\&C view \emph{components} are principal computational elements present at runtime. The representation uses the UML diagram. In Figure \ref{fig:comp-example} is shown an example of component and their respective connections.
+To define them, the software architecture relies on a component-and-connector view (C\&C view). In this C\&C view \emph{components} are principal computational elements present at runtime. The representation used in Figure \ref{fig:comp-example} uses the UML diagram and shows some components and their respective connections.
 
 \begin{figure}[ht]
 	\centerline
 	{\includegraphics[scale=0.55]{img/solar-comp-example.png}}
-	\caption[SOLAR Components example]{(a) A set of components and their interfaces and (b) the C\&C view of the components in (a).\cite{solar}}
+	\caption[SOLAR Components example]{(a) A set of components and their interfaces and (b) the C\&C view of the components in (a)\cite{solar}.}
 	\label{fig:comp-example}
 \end{figure}
 
-Components have interfaces attached to ports. \emph{Connectors} are pathways of interaction between components and also have interfaces or roles. In Figure \ref{fig:solar-arch-example} is shown an example of an architecture, the used components are highlighted in gray; this example will be used to explain the metrics later in this chapter.
+Components have interfaces attached to ports. \emph{Connectors} are pathways of interaction between components and also have interfaces or roles. In Figure \ref{fig:solar-arch-example} it is shown an example of an architecture, the used components are highlighted in gray; this example will be used to explain the metrics later in this chapter.
 
 \begin{figure}[ht]
 	\centerline
@@ -223,7 +224,7 @@ In parts (b) and (c) in Figure \ref{fig:solar-inter-cases} (regions where the ad
 
 \begin{table}[ht!b]
 	\centering
-	\begin{tabular}{lx{4cm}x{4cm}}
+	\begin{tabular}{lx{3cm}x{3cm}}
 		\firsthline
 		\multirow{2}{*}{When adaptability increases} & \multicolumn{2}{c}{Requirement formulated as} \\
 		\cline{2-3}
@@ -251,4 +252,4 @@ Both of these tools want to help the software architect in choosing the right se
 	\item It does not considers the probability of failure of a component at runtime.
 	\item Requires a lot of time to produce complete results.
 \end{itemize}
-In the next chapter is shown how to analyze the quality of a software and in particular how to evaluate the adaptability of a software with respect to some attributes such as cost and availability.
+In the next chapter it is shown how to analyze the quality of a software and in particular how to evaluate the adaptability of a software with respect to some attributes such as cost and availability.

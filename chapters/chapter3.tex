@@ -37,48 +37,48 @@ All the metrics shown in this section are focused on two primary quality attribu
 \end{itemize}
 Both these parameters are given by the software engineer and come from the previous analysis of the requisites.
 
-In table \ref{tab:new-metrics-summary} are summarized all the terms used in the metrics definitions.
+\noindent All the terms which are used in the metrics definitions are presented in table \ref{tab:new-metrics-summary}.
 
 \begin{table}[ht!b]
 	\centering
-	\begin{tabular}{|l|l|}
+	\begin{tabular}{|l|l|l|}
 		\hline
-		\multicolumn{1}{|c|}{Name} & \multicolumn{1}{c|}{Meaning} \\
+		\multicolumn{1}{|c|}{Name} & Type & \multicolumn{1}{c|}{Meaning} \\
 		\hline 
-		$availability_{target}$ & represent the minimum availability the system must have \\
+		$availability_{target}$ & Parameter & represent the minimum availability the system must have \\
 		\hline
-		$cost_{target}$ & represents the maximum cost the system must have \\ 
+		$cost_{target}$ & Parameter & represents the maximum cost the system must have \\ 
 		\hline
-		$C_i$ & Component \emph{i} \\ 
+		$C_i$ & Parameter & Component \emph{i} \\ 
 		\hline
-		$T_{C_i}$ & Execution time for component \emph{i} \\
+		$T_{C_i}$ & Parameter & Execution time for component \emph{i} \\
 		\hline
-		$PS_i$ & Provided service \emph{i} \\
+		$PS_i$ & Parameter & Provided service \emph{i} \\
 		\hline
-		$N_{exec_{PS_i}}$ & Number of executions of provided service \emph{i} \\
+		$N_{exec_{PS_i}}$ & Result & Number of executions of provided service \emph{i} \\
 		\hline
-		$T_{PS_i}$ & Execution Time of provided service \emph{i} \\
+		$T_{PS_i}$ & Result & Execution Time of provided service \emph{i} \\
 		\hline
-		$TotTime$ & Total time of execution \\
+		$TotTime$ & Result & Total time of execution \\
 		\hline
-		$S_i$ & Service \emph{i} \\
+		$S_i$ & Parameter & Service \emph{i} \\
 		\hline
-		$T_{S_i}$ & Execution time of service \emph{i} \\
+		$T_{S_i}$ & Parameter & Execution time of service \emph{i} \\
 		\hline
-		$N_{exec_{S_i}}$ & Number of executions of service \emph{i} \\
+		$N_{exec_{S_i}}$ & Result & Number of executions of service \emph{i} \\
 		\hline
-		$P_{exec_{S_i}}$ & Probability of execution service \emph{i} \\
+		$P_{exec_{S_i}}$ & Parameter & Probability of execution service \emph{i} \\
 		\hline
-		$ExecPerCall_{S_i}$ & Number of execution per call of service \emph{i} \\
+		$ExecPerCall_{S_i}$ & Parameter & Number of execution per call of service \emph{i} \\
 		\hline
-		$N_{exec_{PS_i}}$ &  Number of executions of provided service \emph{i} \\
+		$N_{exec_{PS_i}}$ & Result &  Number of executions of provided service \emph{i} \\
 		\hline
-		$TimeAction_{S_i}$ & The time a service \emph{i} is working \\
+		$TimeAction_{S_i}$ & Result & The time a service \emph{i} is working \\
 		\hline
-		$AV_{C_i}$ & Intrinsic availability of component \emph{i} \\
+		$AV_{C_i}$ & Parameter & Intrinsic availability of component \emph{i} \\
 		\hline
 	\end{tabular} 
-	\caption[New Metrics]{Summary of the metrics.}
+	\caption[New Metrics]{Summary of the metrics terms.}
 	\label{tab:new-metrics-summary}
 \end{table}
 

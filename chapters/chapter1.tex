@@ -1,2 +1,27 @@
 \chapter{Introduction}
 \label{cap:introduction}
+\section{General description of the project}
+Adaptability Analyzer is a tool created in order to ease the static and dynamic analysis of architectures that have to be created or that already exist; it provides some functionalities in order to evaluate the cost, the availability and the adaptability of an architecture that don't require any programming knowledge in order to be used and understood.
+
+Some studies about the adaptability of a software have been done in the past years by the industry and the academia and and some papers have been presented, e.g. Huebscher and McCann (2013) \cite{survey-aut-comp}, Salehie and Tahvildari (2009) \cite{self-adap-soft}, Cheng et al. (2009) \cite{soft-eng-for-sas-1}, Andersson et al. (2009) \cite{soft-eng-for-sas-3}, Oreizy et al. (1999) \cite{arch-based-appr-to-sas}, Calinescu et al. (2012) \cite{sas-quant-ver} and de Lemos et al. (2013) \cite{soft-eng-for-sas-2}. All these papers evidence how more and more users need that the software, even in everyday context, can adapt in an efficient and fast way to their needs and they can do so with the highest performance and availability. These two needs interfere with each other and frequently can't be achieved or guaranteed, in fact increasing adaptability can affect any other quality attributes such as cost or availability.
+
+This tools is born to balance positive and negative effects that building a new software architecture with hight adaptability can have and help the software architect to achieve a better result in a faster way just by providing some data to the tool.
+
+All the result presented by the tool should be easy enough to provide some useful and easy to understand informations to anybody by using cartesian graphs and graphical representations, and some more complicated but powerful data to the software architect by providing numerical data, sometimes very detailed per architecture, component or service.
+
+The development of the tool was done over the course one year, from end October 2017 to June 2018, supervised by professor Raffaela Mirandola and with the remote help of PhD. Diego Perez-Palancin from Sweden.
+
+\section{Structure of the document}
+This thesis is structured as follows:
+
+Chapter \ref{cap:state-of-the-art} presents what is an \emph{adaptable software}, which research has been done up to now and the existing software that is available to analyze architectures.
+
+Chapter \ref{cap:quality-metrics} presents the new metrics that have been developed to support the analysis, how they work and what is their meaning, also presenting the same example from Section \ref{sec:solar-framework} to understand them better.
+
+Chapter \ref{cap:design} presents the tool, how it works and how it request and presents the data.
+
+Chapter \ref{cap:evaluation} analyzes two architectures: the well known Tele Assistance System \cite{teleassist} and one architecture generated automatically by the tool.
+
+Chapter \ref{cap:discussion} presents some general results achieved by this tool and some future work that can be done in order to further improve it.
+
+At the end there are Appendix \ref{app:usermanual} that presents how tehe software is structured and how some metrics are implemented and Appendix \ref{app:test-arch} that contains the JSON of the architecture analyzed in the thesis.

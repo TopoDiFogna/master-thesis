@@ -1,2 +1,30 @@
 \chapter{Future Works and Conclusions}
 \label{cap:discussion}
+This final chapter summarized the goals that have been achieved with this project and provides an overview of the possible future works regarding the tool, how can it be expanded and what can be improved.
+
+The world of \emph{self adapting systems} has been studied only in the last few years in order to answer the request of the users that demanded software which can adapt to their needs. For this reason there are no universally recognized metrics that can be used to evaluate such systems.
+
+This project was born with the goal to provide some metrics and a tool that help in deciding which component to purchase or develop when designing an architecture, understand which are the disadvantages in favoring one quality attribute over another and limit the drawbacks that this behavior produces.
+
+The biggest limit of all the previous studies is that they analyze the architecture only from a static point of view; this tool has further strengthened this studies and has expanded them by adding the analysis of the architecture with some metrics that can also study the dynamic behavior of the system by using a sequence diagram. 
+
+For some metrics the need to optimize the algorithms was born in order to reduce computation times, especially when architectures have many components; this was done by an exhaustive study of the problem and modeling  the algorithms in such a way that they can provide in the average case results in a reasonable time without sacrificing completeness.
+
+It was also developed in a modularized way that makes further developing easy and reduce the burden of future refactoring.
+
+\section{Future Works}
+The last implementation of the tool, despite being fully functional in its features, has some features that a final analysis found can be improved or changed but they were left as they are for a lack of time even if the code have been written in a way that should make these changes easy to implement.
+
+\subsection{Services in a Component}
+Some metrics, for sake of simplicity in writing the formulas, don't take in consideration that one component can provide more than a service. The Java object for the component already take into account multiple Provided Services but some metrics just ignore that.
+
+\subsection{Paths}
+In the actual implementation of the sequence diagram is not possible to nest multiple paths in order to represent nested \texttt{Alt} and/or \texttt{Opt} blocks. To implement this feature the structure of the Java code of the \texttt{Workflow} and \texttt{Path} should be revised.
+
+Also the tool does not check the correctness of a path when a message is entered, such as if a message \texttt{S1 -> S2} exists but no component that provides S1 also requires S2 exists in the architecture.
+
+\subsection{Adaptability}
+Some more tabs can be added in the tool to expand the analysis of the adaptability with respect to other quality metrics other than cost. This can be achieved by implementing some other metrics and calculations in order to display the appropriate graphs.
+
+\subsection{Visual representation of the architecture}
+When displaying the graphical representation of the architecture, all the components are positioned at random in the window. The actual code provides a way to implement a new Java class that can place the components with an order.

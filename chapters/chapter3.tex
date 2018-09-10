@@ -1,0 +1,244 @@
+\chapter{The new quality metrics}
+\label{cap:quality-metrics}
+In this chapter it is explained how to improve the SOLAR framework in order to integrate the existing metrics with another set of metrics in order to provide the software engineer with more information regarding the architecture he's building. 
+
+All modern applications are born to meet some functional requirements that often are subject to changes due to the fact that the environment where they operate is dynamic and can change in a unpredictable way. In the academic and industrial reality rose up the need to standardize some quality metrics in order to evaluate a software, this is the case of the \textbf{ISO/IEC 25010} standard called \emph{Systems and software Quality Requirements and Evaluation (SQuaRE)}\cite{iso/iec-25010}. However in the self-adaptive context these metrics are not of much help since they do not account the ability of these systems to auto adapt whenever they need it.
+
+To overcome this problem some more new metrics have been defined that analyze the architecture in two different ways:
+\begin{itemize}
+	\item using a component diagram as defined in the UML standard\cite{uml} to analyze the static behavior
+	\item using a sequence diagram as defined in the UML standard\cite{uml} to analyze the runtime behavior
+\end{itemize}
+
+The final objective is to define some adaptability metrics for the architecture as a whole and for every service that the architecture uses. In a more specific way what is shown is how important is every service in a architecture and as a consequence, how important is every component.
+
+\section{Systems and software Quality Requirements and Evaluation}
+\label{sec:square}
+\textbf{ISO/IEC 25010}, \emph{Systems and software engineering — Systems and software Quality Requirements and Evaluation (SQuaRE)}\cite{iso/iec-25010} is an international standard for the evaluation of software quality that replaced the previous \textbf{ISO/IEC 9126} \emph{Software engineering — Product quality standard}\cite{iso/iec-9126}.
+
+It presents eight product quality characteristics (in contrast to ISO 9126's six):
+\begin{itemize}
+	\item Functional suitability - degree to which a product or system provides functions that meet stated and implied needs when used under specified conditions
+	\item Reliability - degree to which a system, product or component performs specified functions under specified conditions for a specified period of time
+	\item Usability - degree to which a product or system can be used by specified users to achieve specified goals with effectiveness, efficiency and satisfaction in a specified context of use
+	\item Performance efficiency - performance relative to the amount of resources used under stated conditions
+	\item Maintainability - degree of effectiveness and efficiency with which a product or system can be modified by the intended maintainers
+	\item Portability - degree of effectiveness and efficiency with which a system, product or component can be transferred from one hardware, software or other operational or usage environment to another
+	\item Compatibility - degree to which a product, system or component can exchange information with other products, systems or components, and/or perform its required functions, while sharing the same hardware or software environment
+	\item Security - degree to which a product or system protects information and data so that persons or other products or systems have the degree of data access appropriate to their types and levels of authorization
+\end{itemize}
+
+\section{The New Metrics}
+\label{sec:new-metrics}
+All the metrics shown in this section are focused on two primary quality attributes for the software engineer which are \emph{availability} and \emph{cost}. As a consequence two parameters must be given to perform some of the calculations:
+\begin{itemize}
+	\item \emph{$availability_{target}$} which represents the minimum availability the system must have
+	\item \emph{$cost_{target}$} which represents the maximum cost the system must have
+\end{itemize}
+Both these parameters are given by the software engineer and come from the previous analysis of the requisites.
+
+\noindent All the terms which are used in the metrics definitions are presented in table \ref{tab:new-metrics-summary}.
+
+\begin{table}[ht!b]
+	\centering
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\multicolumn{1}{|c|}{Name} & Type & \multicolumn{1}{c|}{Meaning} \\
+		\hline 
+		$availability_{target}$ & Parameter & represent the minimum availability the system must have \\
+		\hline
+		$cost_{target}$ & Parameter & represents the maximum cost the system must have \\ 
+		\hline
+		$C_i$ & Parameter & Component \emph{i} \\ 
+		\hline
+		$T_{C_i}$ & Parameter & Execution time for component \emph{i} \\
+		\hline
+		$PS_i$ & Parameter & Provided service \emph{i} \\
+		\hline
+		$N_{exec_{PS_i}}$ & Result & Number of executions of provided service \emph{i} \\
+		\hline
+		$T_{PS_i}$ & Result & Execution Time of provided service \emph{i} \\
+		\hline
+		$TotTime$ & Result & Total time of execution \\
+		\hline
+		$S_i$ & Parameter & Service \emph{i} \\
+		\hline
+		$T_{S_i}$ & Parameter & Execution time of service \emph{i} \\
+		\hline
+		$N_{exec_{S_i}}$ & Result & Number of executions of service \emph{i} \\
+		\hline
+		$P_{exec_{S_i}}$ & Parameter & Probability of execution service \emph{i} \\
+		\hline
+		$ExecPerCall_{S_i}$ & Parameter & Number of execution per call of service \emph{i} \\
+		\hline
+		$N_{exec_{PS_i}}$ & Result &  Number of executions of provided service \emph{i} \\
+		\hline
+		$TimeAction_{S_i}$ & Result & The time a service \emph{i} is working \\
+		\hline
+		$AV_{C_i}$ & Parameter & Intrinsic availability of component \emph{i} \\
+		\hline
+	\end{tabular} 
+	\caption[New Metrics]{Summary of the metrics terms.}
+	\label{tab:new-metrics-summary}
+\end{table}
+
+\subsection{Components}
+\subsubsection{Fitness ratio w.r.t. availability}
+This metric defines the ratio between a component availability and the target system availability. This result is from the hypothesis that a component with a high availability can provide, at first glance, more guarantees of functioning. 
+\[ FRA_{C_i} \in \mathbb{R}^+_0 \; | \; FRA_{C_i} = \frac{1 - availability_{target}}{1- availability_{C_i}} \]
+
+This means that if the result is $\ge 1$ the component satisfies the target requisite and as a consequence it can work for a longer time improving the availability of the service it offers. 
+
+A value $\ge 0 $ and $<1$ indicates that this component is prone to failure more frequently than how is requested in the architecture.
+
+\subsubsection{Fitness ratio w.r.t. cost}
+This metric defines the ratio between a component cost and the system target cost. 
+
+\[ FRC_{C_i} \in \mathbb{R}^+_0 \; | \; FRC_{C_i} = \frac{cost_{target}}{cost_{C_i}}\]
+
+With the same component cost, if the system target cost grows higher the Fitness Ratio w.r.t. Cost becomes bigger. This implies that the bigger the component and the system target cost gap is, the more can be saved from buying this component w.r.t. the maximum budget invested in buying all the components.
+
+\subsubsection{Weight of residence time}
+This metric calculates which fraction of time a component is running w.r.t total running time of the architecture.
+
+\[ T_{C_i} \in \mathbb{R}^+ \; | \; T_{C_i} = \sum_{i=0}^{n} N_{exec_{PS_i}} * T_{PS_i} \]
+
+\[ TotTime \in \mathbb{R^+} \; | \; TotTime = \sum_{i=0}^{n}N_{exec_{S_i}} * T_{S_i} \]
+
+\[ WRT \in \mathbb{R}^+ \; | \; WRT = \frac{T_{C_i}}{TotTime} \]
+
+Higher results means that the component runs more than others, thus is an important piece of the architecture. A failure in this component can compromise the functioning of the architecture in a more impactful way than a failure of other components.
+
+\subsection{Services}
+\subsubsection{Number of executions}
+This metric defines the number of times a service is executed.
+
+\[ N_{exec_{S_i}} \in \mathbb{N} \; | \; \forall PS_i \;\, N_{exec_{S_i}} = \sum_{i=0}^{n} P_{exec_{S_i}} * ExecPerCall_{S_i} * N_{exec_{PS_i}} \]
+
+\subsubsection{Probability to be running}
+This metric defines the probability that a given service is running in a given moment.
+
+\[ PTBR_{S_i} \in [0..1] \; | \; PTBR_{S_i} =  \frac{{N_{exec_{S_i}}}}{ \sum_{i=0}^{n}  N_{exec_{S_i}}} \]
+
+\subsubsection{In Action}
+This metric calculates the probability to find a given service active considering the dynamic analysis of the architecture.
+
+\[ TimeAction_{S_i} \in \mathbb{R}^+ \; | \; TimeAction_{S_i}=\sum_{j=0}^{n} T_{exec{S_i}Path_j} * P_{exec_{S_i}} \]
+\[ InAction_{S_i} \in [0..1] \; | \; InAction_{S_i} = \frac{TimeAction_{S_i}}{{\sum_{i=0}^n}TimeAction_{S_i}} \]
+
+It considers all the possible paths available in the selected workflow; in this way a workflow with an \texttt{Alt} and/or \texttt{Opt} block in the sequence diagram can be represented in a correct way.
+
+\subsection{Architecture}
+\subsubsection{Global availability of system}
+Defines the availability of the components that are in the architecture as a probability that are all active in a given instant.
+\[ GAS \in \mathbb{R}^+_0 \; | \; \forall C_i \; GAS = \prod_{i=0}^{n} FRA_{C_i} \]
+A better availability of a component in the architecture implies a better Fitness Ratio w.r.t. Availability that is reflected in a better global availability. Higher numbers mean better availability.
+\subsubsection{Global cost of system}
+Defines the total cost of the components in an architecture w.r.t. the cost of each individual component.
+\[ GCS \in \mathbb{R}^+_0 \; | \; \forall C_i GCS = \sum_{i=0}^{n} FRC_{C_i} \]
+\subsubsection{Total Static Availability}
+This methods calculate the Availability of an architecture without considering actual workflows of the architecture, so it uses the component diagram. It considers all components as used and considers a call to the main service to use always all the components.
+
+Given that $S_x$ is the main offered service we can calculate the availability of such service as total availability of the system.
+\begin{itemize}
+\item If a component is terminal, so doesn't require any service:
+\[ Av(C_{i}) \in \mathbb{R}^+_0 \; | \; Av(C_{i}) = AV_{C_{i}} \]
+\item  If a component is not terminal and requires some service $S_k$:
+\[ Av(C_{i}) \in \mathbb{R}^+_0 \; | \; \forall S_k \; Av(C_{i}) = AV_{C_{i}}*\prod_{k=0}^{n} ((1-p_{S_k}^{C_{i}}) + p_{S_k}^{C_{i}} * (AV_{S_k})^{N_{S_k}^{C_i}}) \]
+\end{itemize}
+With these we can calculate the availability of $S_x$ thus the availability of the architecture with $C_i$ being any component that offers $S_x$.
+\[ Av(S_x) \in \mathbb{R}^+_0 \; | \; \exists C_i \; Av(S_x) = 1-\prod_{i=0}^{n}(1-Av_{C_i}) \]
+
+
+\subsection{Example}
+To show how these metrics work we can set-up the architecture from Chapter \ref{cap:state-of-the-art} used in the Solar Metrics in Section \ref{subsec:solar-metrics}; since no data is given for such architecture, it was made up as plausible as possible and can be seen in Table \ref{tab:solar-comp-specs}. Since $availability_{target}$ and $cost_{target}$ are required to the software architect they can be set to $0.90$ and $8$ respectively. Also services data had to be made up and can be visible in Table \ref{tab:solar-serv-specs}
+
+\begin{table}[ht!b]
+	\centering
+	\begin{tabular}{|p{2cm}|p{2cm}|p{1cm}||p{2cm}|p{2cm}|p{1cm}|}
+		\hline 
+		\textbf{Component Name} & \textbf{Availability} & \textbf{Cost} & \textbf{Component Name} & \textbf{Availability} & \textbf{Cost} \\ 
+		\hline 
+		C11 & 0.90 & 1.2 & C31 & 0.90 & 1.5 \\
+		\hline 
+		C21 & 0.87 & 0.8 & C32 & 0.99 & 2.0 \\ 
+		\hline 
+		C22 & \multirow{2}{*}{0.90} & \multirow{2}{*}{1.0} & C33 & \multirow{2}{*}{0.85} & \multirow{2}{*}{0.9} \\ 
+		(Not Used) & & & (Not Used) & & \\
+		\hline 
+	\end{tabular} 
+	\caption[SOLAR Components Data]{SOLAR example components data.}
+	\label{tab:solar-comp-specs}
+\end{table}
+
+\begin{table}[ht!b]
+	\centering
+	\begin{tabular}{|p{2cm}|p{2.5cm}|p{1.4cm}|p{1.7cm}|p{1.5cm}|p{1.8cm}|}
+		\hline 
+		\textbf{Component} & \textbf{Service Name} & \textbf{Type of Service} & \textbf{Execution Time} & \textbf{Used Probability} & \textbf{Number of Execution per Call} \\ 
+		\hline 
+		\multirow{3}{*}{C11} & S1 & Provided & 1.0 & & \\\cline{2-6}
+		& S2 & Required & & 0.90 & 3 \\
+		& S3 & Required & & 0.30 & 1 \\
+		\hline 
+		C21 & S2 & Provided & 2.0 & & \\
+		\hline 
+		C22 & \multirow{2}{*}{S2} & \multirow{2}{*}{Provided} & \multirow{2}{*}{2.0} & & \\
+		(Not Used) & & & & & \\
+		\hline 
+		C31 & S3 & Provided & 1.0 & & \\
+		\hline
+		C32 & S3 & Provided & 1.0 & & \\
+		\hline
+		C33 & \multirow{2}{*}{S3} & \multirow{2}{*}{Provided} &\multirow{2}{*}{1.0} & & \\
+		(Not Used) & & & & & \\
+		\hline
+	\end{tabular} 
+	\caption[SOLAR Services Data]{SOLAR example services data.}
+	\label{tab:solar-serv-specs}
+\end{table}
+
+\subsubsection{Fitness ratio w.r.t. availability}
+If we consider Component C21:
+\[ FRA_{C21} = \frac{1-0.90}{1-0.87} = 0.77 \]
+This means that the component is below the \emph{$availability_{target}$}.
+
+\noindent Using Component C32 instead:
+\[ FRA_{C32} = \frac{1-0.90}{1-0.99} = 10 \]
+This means that the component is above the \emph{$availability_{target}$}.
+\subsubsection{Fitness ratio w.r.t. cost}
+If we consider Component C21:
+\[FRC_{C21} = \frac{8}{0.8}=10\]
+This means that the component is well below the \emph{$cost_{target}$}.
+\subsubsection{Weight of residence time}
+Considering Component C11, we need to calculate $T_{C11}$ and $TotTime$.
+\[T_{C11} = 1 * 1 = 1\]
+\[TotTime = 1 * 1 + 2.7 * 2 + 0.3 * 1 = 6.7\]
+Now we can Calculate \emph{WRT}
+\[WRT_{C11} = \frac{1}{6.7} = 0.15\]
+This means that the Component C11 is actually performing some work only in the 15\% of the time.
+\subsubsection{Number of executions}
+If we consider S1:
+\[N_{exes_{S1}} = 1\]
+since S1 is the provided service.
+
+\noindent If we consider S2:
+\[N_{exes_{S2}} = 1 * 0.9 * 3 = 2.7\]
+\subsubsection{Probability to be running}
+If we consider S2
+\[PTBR_{S_2} = \frac{2.7}{1 + 2.7 + 0.3} = 0.675\]
+\subsubsection{Global availability of system}
+We must consider all the components:
+\[GAS = \frac{1-0.90}{1-0.90} + \frac{1-0.90}{1-0.87} + \frac{1-0.90}{1-0.90} + \frac{1-0.90}{1-0.90} + \frac{1-0.90}{1-0.99} + \frac{1-0.90}{1-0.85} = 13.72\]
+This means that the single availability of the components is on average higher or equal to the \emph{$availability_{target}$}.
+\subsubsection{Global cost of system}
+We must consider all the components:
+\[GAS = \frac{8}{1.2} + \frac{8}{0.8} + \frac{8}{1} + \frac{8}{1.5} + \frac{8}{2} + \frac{8}{0.9} = 42.89\]
+This means that on average all the components cost much less than \emph{$cost_{target}$}.
+\subsubsection{Total Static Availability}
+We need to calculate the parallel for the two terminal groups and then puth them in series with the C11 group:
+\[Av(C2x) = Av(S2) = 1-(1-0.87)*(1-0.90) = 0.987\]
+\[Av(C3x) = Av(S3) = 1-(1-0.90)*(1-0.99)*(1-0.85) = 0.999\]
+\[Av(C11) = Av(S1) = 0.90 * ((1-0.9)+0.9*(0.987)^3)*((1-0.3) + 0.3*(0.999)^1)\]
+\[Av(C11) = Av(S1) = 0.868\]
+This means that from a static point of view the architecture cannot satisfy the \emph{$availability_{target}$}.

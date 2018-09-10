@@ -1,0 +1,198 @@
+% For printing in a4
+%\documentclass[a4,10pt,twoside,openright,italian,english]{book}% twoside!
+
+% For printing with the A5 format
+\documentclass[11pt,twoside,openright,english,italian]{book}% twoside!
+
+% Set paper size
+\usepackage[twoside=true]{geometry}
+
+\geometry{a4paper,
+  top=33mm,
+  bottom=34mm,
+  inner=38mm,
+  outer=32mm,
+  bindingoffset=5mm
+}
+
+%\usepackage[cam,center,a4,pdflatex,axes]{crop}
+
+\usepackage{phdthesis}
+\usepackage{phdtitle}
+
+
+
+\usepackage{listings}
+\usepackage{subfig}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{bibentry}
+\usepackage{setspace}
+\usepackage[english,italian]{babel}
+\usepackage[toc]{appendix}
+\usepackage[bookmarks=true,pdftex=false,bookmarksopen=true,pdfborder={0,0,0},hidelinks]{hyperref}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{multirow}
+%\usepackage{array}
+%\usepackage{epstopdf}
+%\usepackage{color}
+%\usepackage{mdwmath}
+%\usepackage{mdwtab}
+%\usepackage{amsmath,amssymb}
+%\usepackage{cite}
+%\usepackage{glossaries}
+%\usepackage{booktabs}
+%\usepackage{latexsym}
+%\usepackage{url}
+%\usepackage{bnf}
+%\usepackage{rotating}
+%\usepackage{paralist}
+%\usepackage[algochapter]{algorithm2e}
+%\usepackage{lscape}
+%\usepackage{algorithmic}
+%\usepackage{algorithm}
+%\usepackage{longtable}
+%\usepackage[T1]{fontenc} 
+%\usepackage[utf8]{inputenc}
+
+\colorlet{punct}{red!60!black}
+\definecolor{background}{HTML}{EEEEEE}
+\definecolor{delim}{RGB}{20,105,176}
+\colorlet{numb}{magenta!60!black}
+
+\lstdefinelanguage{json}{
+	basicstyle=\footnotesize\ttfamily,
+	numbers=left,
+	numberstyle=\scriptsize,
+	stepnumber=1,
+	numbersep=8pt,
+	showstringspaces=false,
+	breaklines=true,
+	frame=lines,
+	backgroundcolor=\color{background},
+	literate=
+	*{0}{{{\color{numb}0}}}{1}
+	{1}{{{\color{numb}1}}}{1}
+	{2}{{{\color{numb}2}}}{1}
+	{3}{{{\color{numb}3}}}{1}
+	{4}{{{\color{numb}4}}}{1}
+	{5}{{{\color{numb}5}}}{1}
+	{6}{{{\color{numb}6}}}{1}
+	{7}{{{\color{numb}7}}}{1}
+	{8}{{{\color{numb}8}}}{1}
+	{9}{{{\color{numb}9}}}{1}
+	{:}{{{\color{punct}{:}}}}{1}
+	{,}{{{\color{punct}{,}}}}{1}
+	{\{}{{{\color{delim}{\{}}}}{1}
+	{\}}{{{\color{delim}{\}}}}}{1}
+	{[}{{{\color{delim}{[}}}}{1}
+	{]}{{{\color{delim}{]}}}}{1},
+}
+
+\hyphenation{}
+
+\onehalfspacing
+
+\lstset{tabsize=2,basicstyle=\footnotesize,breaklines=true}
+
+\hypersetup{pdftitle={Adaptability Analyzer Tool}, pdfauthor={Paolo Paterna}}
+
+\newcolumntype{x}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}p{#1}} %column with specified width and centered
+
+\nobibliography*
+
+\department {Scuola di Ingegneria Industriale e dell'Informazione}
+\phdprogram{Tesi di Laurea Magistrale in\\Computer Science and Engineering}
+
+\author{Paolo Paterna}
+\authorid{852548}
+
+\title{Adaptability Analyzer Tool}
+\supervisor{Raffaela Mirandola}
+\tutor{Diego Perez-Palacin}
+\titleimage{img/logo-poli.eps}
+\phdcycle{A.Y. 2017/2018}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Let's Start The Real Document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\selectlanguage{english}
+
+\maketitle
+
+\cleardoublepage
+
+% change numbering into Roman numbers for the introductory part
+\setcounter{page}{1}
+\pagenumbering{Roman}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TOC
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setcounter{tocdepth}{1}
+\phantomsection
+\addcontentsline{toc}{chapter}{Contents}
+\tableofcontents
+\cleardoublepage
+
+%
+% LIST OF 
+%
+\phantomsection
+\addcontentsline{toc}{chapter}{List of Figures}
+\listoffigures
+\cleardoublepage
+
+\phantomsection
+\addcontentsline{toc}{chapter}{List of Tables}
+\listoftables
+\cleardoublepage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Acknowledgement
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\phantomsection
+\addcontentsline{toc}{chapter}{Acknowledgment}
+\input{chapters/acknowledge}
+\cleardoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Abstract
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{chapters/abstract}
+
+\cleardoublepage
+
+% Now lets go back to normal numbering
+\setcounter{page}{1}
+\pagenumbering{arabic}
+
+\include{chapters/chapter1} 
+\include{chapters/chapter2}
+\include{chapters/chapter3}
+\include{chapters/chapter4}
+\include{chapters/chapter6}
+\include{chapters/chapter7}
+
+\appendix
+\noappendicestocpagenum
+
+\include{appendices/app1}
+
+\include{appendices/app2}
+
+
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{\bibname}
+\small
+\bibliographystyle{unsrt}
+\bibliography{thesis}
+
+
+
+\end{document}

@@ -1,0 +1,479 @@
+\chapter{Experimental Evaluation}
+\label{cap:evaluation}
+
+In this chapter the Adaptability Analyzer Software is used to study two main cases: one is the Tele Assistance System\cite{teleassist} and the other one is generated with the integrated Architecture Generator.
+
+\section{Tele Assistance: A Self-Adaptive Service-Based System}
+Tele Assistance System, also known as TAS, is a research, done by the University of York \cite{teleassist}, on self-adaptation in the domain of service-based systems. Originally introduced in \cite{valid-web-serv} has already been used in the evaluation of several self-adaptation solutions \cite{valid-web-serv}, \cite{sas-quant-ver}, \cite{dyn-qos-manage}, \cite{mod-evo-conf}, \cite{conq-compl}, albeit based on ad-hoc implementations, scenarios and evaluation metrics that make the comparison of these solutions and its use to evaluate other solution very difficult.
+
+To address these limitation the University of York implemented TAS on their Research Service Platform (ReSeP) in conjunction with concrete scenarios in order to have an immediate use in evaluation of the self-adaptation solutions.
+
+The system provides health support to chronic condition sufferers within the comfort of their homes. TAS uses a combination of sensors embedded in a wearable device and remote services from healthcare, pharmacy and emergency service providers. As shown in Figure \ref{fig:tas-workflow}, the TAS workflow takes periodical measurements of the vital parameters of a patient and employs a third-party medical service for their analysis. The analysis result may trigger the invocation of a pharmacy service to deliver new medication to the patient or to change his/her dose of medication, or the invocation of an alarm service leading, e.g., to an ambulance being dispatched to the patient. The same alarm service can be invoked directly by the patient, by using a panic button on the wearable device.
+
+\begin{figure}[ht]
+	\centerline
+	{\includegraphics[scale=0.55]{img/tas-workflow.png}}
+	\caption[TAS Workflow]{TAS workflow\cite{teleassist}.}
+	\label{fig:tas-workflow}
+\end{figure}
+
+They also device some generic adaptation scenarios shown in Table \ref{tab:tas-scenarios} and some metrics shown in table \ref{tab:tas-metrics}
+
+In conclusion TAS is a reference implementation of a service based system and generic adaptation scenarios associated with different types of uncertainty. First, it aims to promote research and understanding among multiple researchers and research groups, through enabling the comparison of different self-adaptation approaches, without favoring any particular approach. Second, TAS aims to serve the advance of single research efforts by reducing the time required to evaluate self-adaptation solutions. Finally, it aims to contribute to advancing the practice of engineering self-adaptive systems, by being a realistic example of a widely used type of software system.
+
+\begin{table}[ht!b]
+	\centering
+	\begin{tabular}{|l|p{3.5cm}|p{3.5cm}|p{3.5cm}|}
+		\hline 
+		\textbf{Scenario} & \textbf{Type of uncertainty} & \textbf{Type of adaptation} & \textbf{Type of requirements}  \\
+		\hline 
+		S1 & Unpredictable environment: service failure  & Switch to equivalent service; Simultaneous invocation of several services for idempotent operation & QoS: Reliability, cost \\
+		\hline 
+		S2 & Unpredictable environment: variation of service response time & Switch to equivalent service; Simultaneous invocation of several services for idempotent operation & QoS: Performance, cost \\
+		\hline 
+		S3 & Incomplete information: new service & Use new service & QoS: Reliability, performance, cost \\ 
+		\hline 
+		S4 & Changing requirements: new goal & Change workflow architecture; Select new service of the change on the levels & Functional: new operation \\ 
+		\hline 
+		S5 & Inadequate design: wrong operation sequence & Change workflow architecture & Functional: operation sequence compliance \\ 
+		\hline
+		
+	\end{tabular} 
+	\caption[TAS Scenarios]{Generic adaptation scenarios for service-based systems\cite{teleassist}.}
+	\label{tab:tas-scenarios}
+\end{table}
+
+\begin{table}[ht!b]
+	\centering
+	\begin{tabular}{|p{3cm}|p{10cm}|}
+		\hline 
+		\textbf{Quality Attribute} & \textbf{Metrics} \\ 
+		\hline 
+		Reliability & Number of failed service invocations
+		Number of specific operation sequence failures
+		Mean time to recovery \\ 
+		\hline 
+		Performance & Number of specific operation sequences exceeding allowed execution time \\ 
+		\hline 
+		Cost & Cumulative service invocation cost over given time period \\ 
+		\hline 
+		Functionalities & Number of faulty process executions \\ 
+		\hline 
+		
+	\end{tabular} 
+	\caption[TAS Metrics]{Quality attributes and metrics for the evaluation and comparison of SBS self-adaptation solutions\cite{teleassist}.}
+	\label{tab:tas-metrics}
+\end{table}
+
+\clearpage
+
+\subsection{Adaptability Analyzer Results}
+
+To recreate the original Tele Assistance System in the tool, the architecture has been divided in multiple components, each offering or requesting the services presented in the original system as shown in Table \ref{tab:tas-original-services}
+
+\begin{table}[ht!b]
+	\centering
+	\begin{tabular}{|p{5cm}|p{3cm}|p{1cm}|}
+		\hline 
+		\textbf{Service Name} & \textbf{Failure Rate} & \textbf{Cost} \\ 
+		\hline 
+		Alarm Service 1 & 0.11 & 4.0 \\
+		\hline 
+		Alarm Service 2 & 0.04 & 12.0 \\ 
+		\hline 
+		Alarm Service 3 & 0.18 & 2.0 \\ 
+		\hline 
+		Medical Analysis Service 1 & 0.12 & 4.0 \\ 
+		\hline
+		Medical Analysis Service 2 & 0.07 & 14.0 \\ 
+		\hline
+		Medical Analysis Service 3 & 0.18 & 2.0 \\ 
+		\hline
+		Drug Service 1 & 0.01 & 5.0 \\ 
+		\hline
+		
+	\end{tabular} 
+	\caption[TAS Services]{Tele Assistance Services in the original formulation.}
+	\label{tab:tas-original-services}
+\end{table}
+
+Therefore the components are divided in three main groups each offering a service between Alarm, Medical Analysis and Drug Service and one more component is added to recreate the entry point of the original system. Since the main component is not specified in the original system, I have created a plausible component with its parameters called \emph{TA}. In Table \ref{tab:tas-comp} are visible all the components and Figure \ref{fig:tas-arch} is a visual representation of the architecture generated with the tool.
+
+\begin{table}[ht!b]
+	\centering
+	\begin{tabular}{|p{3cm}|p{2.5cm}|p{1cm}|}
+		\hline 
+		\textbf{Component Name} & \textbf{Availability} & \textbf{Cost} \\ 
+		\hline 
+		AS1 & 0.89 & 4.0 \\
+		\hline 
+		AS2 & 0.96 & 12.0 \\ 
+		\hline 
+		AS3 & 0.88 & 2.0 \\ 
+		\hline 
+		MAS1 & 0.88 & 4.0 \\ 
+		\hline
+		MAS2 & 0.93 & 14.0 \\ 
+		\hline
+		MAS3 & 0.82 & 2.0 \\ 
+		\hline
+		DS 1 & 0.99 & 5.0 \\ 
+		\hline
+		TA & 0.9 & 5.0 \\ 
+		\hline
+		
+	\end{tabular} 
+	\caption[TAS Components]{Tele Assistance Components as they are represented in the tool.}
+	\label{tab:tas-comp}
+\end{table}
+In Table \ref{tab:tas-serv} are presented the components with the associated services and their parameters. Since every service is likely called as much as the other all the Required Services have a Used Probability of $ \frac{1}{3} $. All the other parameters are made up in order to make the tool work.
+\begin{table}[ht!b]
+	\centering
+	\begin{tabular}{|p{2cm}|p{2.5cm}|p{1.4cm}|p{1.7cm}|p{1.5cm}|p{1.8cm}|}
+		\hline 
+		\textbf{Component} & \textbf{Service Name} & \textbf{Type of Service} & \textbf{Execution Time} & \textbf{Used Probability} & \textbf{Number of Execution per Call} \\ 
+		\hline 
+		AS1 & Alarm & Provided & 1.0 & & \\
+		\hline 
+		AS2 & Alarm & Provided & 5.0 & & \\
+		\hline 
+		AS3 & Alarm & Provided & 2.0 & & \\
+		\hline 
+		MAS1 & MedicalAnalysis & Provided & 5.0 & & \\ 
+		\hline
+		MAS2 & MedicalAnalysis & Provided & 10.0 & & \\ 
+		\hline
+		MAS3 & MedicalAnalysis & Provided & 20.0 & & \\ 
+		\hline
+		DS 1 & Drug & Provided & 10.0 & & \\
+		\hline
+		\multirow{4}{*}{TA} & Alarm & Required & & 0.33 & 1 \\
+		& Drug & Required & & 0.33 & 1 \\
+		& MedicalAnalysis & Required & & 0.33 & 1 \\\cline{2-6}
+		& TeleAssistance & Provided & 1 & & \\
+		\hline
+		
+	\end{tabular} 
+	\caption[TAS Service]{Tele Assistance Components with their associated services.}
+	\label{tab:tas-serv}
+\end{table}
+
+\begin{figure}[ht]
+	\centerline
+	{\includegraphics[scale=0.55]{img/TeleAssistance.png}}
+	\caption[TAS Architecture]{TAS Architecture generated by the tool.}
+	\label{fig:tas-arch}
+\end{figure}
+
+To test the architecture a workflow has been created that reflects part of the original sequence diagram shown in Figure \ref{fig:tas-workflow}. This workflow provides two cases:
+\begin{itemize}
+	\item The service is invoked and after having read the vital parameters and analyzed the data launches an alarm.
+	\item The service is invoked and after having read the vital parameters and analyzed the data changes the drug that is currently administered to the patient.
+\end{itemize}
+
+This choice has been done since \texttt{Alt} and \texttt{Opt} blocks can't be nested in the actual implementation.
+
+In Figure \ref{fig:tas-path1} and \ref{fig:tas-path2} is shown how the two workflows are implemented in the tool.
+\begin{figure}[ht]
+	\centerline
+	{\includegraphics[scale=0.55]{img/TeleAssistancePath1.png}}
+	\caption[TAS Workflow Path Alarm]{TAS workflow with the alarm path selected.}
+	\label{fig:tas-path1}
+\end{figure}
+
+\begin{figure}[ht]
+	\centerline
+	{\includegraphics[scale=0.55]{img/TeleAssistancePath2.png}}
+	\caption[TAS Workflow Path changeDrug]{TAS workflow with the changeDrug path selected.}
+	\label{fig:tas-path2}
+\end{figure}
+
+\clearpage
+
+After performing some calculation with the Adaptability Analyzer Tool, with \emph{System Target Cost} set to 50 and \emph{System Target Availability} set to 0.9, on this architecture the following result are achieved:
+
+\begin{table}[ht!b]
+	\centering
+	\begin{tabular}{|l|c|}
+		\hline
+		Metric & Measure \\
+		\hline 
+		\textbf{Global Availability} & 12.53 \\ 
+		\hline 
+		\textbf{Global Cost} & 102.74 \\
+		\hline 
+		\textbf{Total Static Availability} & 0.90 \\
+		\hline 
+		\textbf{Total Cost} & 48.00 \\
+		\hline 
+		\textbf{Mean of Absolute Adaptability} & 2.00 \\
+		\hline
+		\textbf{Mean of Relative Adaptability} & 1.00 \\
+		\hline
+		\textbf{Level of System Adaptability} & 1.00 \\
+		\hline
+	\end{tabular} 
+	\caption[TAS Service Architecture Metrics]{Tele Assistance Architecture metrics results.}
+	\label{tab:tas-arch-res}
+\end{table}
+
+\begin{table}[ht!b]
+	\centering
+	\begin{tabular}{|l|c|c|c|}
+		\hline 
+		\textbf{Component} & \textbf{FRA} & \textbf{FRC} & \textbf{WRT} \\ 
+		\hline 
+		AS1 & 0.91 & 12.50 & 0.02 \\
+		\hline 
+		AS2 & 2.50 & 4.17 & 0.09 \\
+		\hline 
+		AS3 & 0.83 & 25.00 & 0.04 \\
+		\hline 
+		MAS1 & 0.83 & 12.50 & 0.09 \\
+		\hline
+		MAS2 & 1.43 & 3.57 & 0.18 \\
+		\hline
+		MAS3 & 0.56 & 25.00 & 0.36 \\
+		\hline
+		DS1 & 10.00 & 10.00 & 0.18 \\
+		\hline
+		TA & 1 & 10.00 & 0.05 \\
+		\hline
+	\end{tabular} 
+	\caption[TAS Service Components Metrics]{Tele Assistance Components metrics results.}
+	\label{tab:tas-comp-res}
+\end{table}
+
+\begin{table}[ht!b]
+	\centering
+	\begin{tabular}{|l|c|c|c|c|}
+		\hline 
+		\multirow{2}{*}{\textbf{Service}} & \textbf{Number} & \textbf{Probability to} & \textbf{Absolute} & \textbf{Relative} \\ 
+		& \textbf{of Executions} & \textbf{be running} & \textbf{Adaptability} & \textbf{Adaptability} \\
+		\hline 
+		Alarm & 0.33 & 0.17 & 3 & 1 \\
+		\hline 
+		Drug & 0.33 & 0.17 & 1 & 1 \\
+		\hline 
+		MedicalAnalysis & 0.33 & 0.17 & 3 & 1 \\
+		\hline 
+		TeleAssistance & 1 & 0.5 & 1 & 1 \\
+		\hline
+	\end{tabular} 
+	\caption[TAS Service Services Metrics]{Tele Assistance Services metrics results.}
+	\label{tab:tas-serv-res}
+\end{table}
+
+As expected from Table \ref{tab:tas-arch-res} can be seen that the Architecture has an high value for Global Cost, this means that every component costs very little with respect to the target cost; on the other hand, Global Availability does not inform the architect that only one component has a much better availability than the one requested for the system. 
+
+All the other informations are basic information about the architecture and, in the case of the Total Static Availability, how it behaves from a static point of view.
+
+From Table \ref{tab:tas-comp-res} it can be seen that, as expected, all the components that respect the targets imposed by the architect have values $>1$. The Weight Residence Time shows which is the probability that a component is currently working with respect to the total time from a static point of view.
+
+Table \ref{tab:tas-serv-res} shows how service behaves in the architecture; since all of them, excluding TeleAssistance that is the service that the final user utilizes, are equally probable thus for every call the Number of Executions is 0.33 or $\frac{1}{3}$. The Probability to be Running highlights the fact that since half of the computation is done by the main TeleAssistance service the other half is done for the effective used service thus every service has a probability to be working of 0.17 or $\frac{1}{6}$.
+
+The last two columns show how much the component is replicated and if all the replication are used, so the Alarm and MedicalAnalysis which are replicated three times have an Absolute Adaptability of 3, instead the TeleAssistance and Drug service which are not replicated have an Absolute Availability of 1; since all the component are used all the services have a Relative Adaptability of 1.
+
+Lets focus now on the dynamic analysis and take a look to the drug service; using the workflow shown in Figures \ref{fig:tas-path1} and \ref{fig:tas-path2} the drug service has a InAction and Service Availability of 0.21.The InAction metric shows that in the particular case of the selected workflow the probability that the drug service is active is higher than the static analysis. The service availability is equal to the InAction metric; this is just a case and a rounding issue since the drug service has a availability that is almost 1.
+\clearpage
+
+\section{Random Generated Study Case}
+To show the powerfulness of this tool and its generator, another random generated architecture has been analyzed and its shown in Figure \ref{fig:testarch} and Tables \ref{tab:ag-comp} and \ref{tab:ag-serv}
+
+\begin{figure}[ht]
+	\centerline
+	{\includegraphics[scale=0.9]{img/autogenerated_arch.png}}
+	\caption[AutoGenerated Architecture]{An architecture generated by the tool generator.}
+	\label{fig:testarch}
+\end{figure}
+
+\begin{table}[ht!b]
+	\centering
+	\begin{tabular}{|p{2cm}|p{2cm}|p{1cm}||p{2cm}|p{2cm}|p{1cm}|}
+		\hline 
+		\textbf{Component Name} & \textbf{Availability} & \textbf{Cost} & \textbf{Component Name} & \textbf{Availability} & \textbf{Cost} \\ 
+		\hline 
+		C0-1 & 0.90 & 33.0 & C3-1 & 0.90 & 1.0 \\
+		\hline 
+		C0-2 & 0.87 & 20.0 & C3-2 & 0.99 & 10.0 \\ 
+		\hline 
+		C1-1 & 0.90 & 5.0 & C4-1 & 0.90 & 15.0 \\ 
+		\hline 
+		C1-2 & 0.93 & 7.0 & C5-1 & 0.85 & 6.0 \\ 
+		\hline
+		C2-1 & 0.60 & 10.0 & C5-2 & 0.90 & 10.0 \\ 
+		\hline
+		C2-2 & 0.99 & 60.0 & C6-1 & 0.83 & 20.0 \\ 
+		\hline
+		C2-3 & 0.30 & 5.0 & C6-2 & 0.90 & 100.0 \\ 
+		\hline
+		C2-4 & 0.87 & 20.0 & & & \\ 
+		\hline
+	\end{tabular} 
+	\caption[TAS Components]{Tele Assistance Components as they are represented in the tool.}
+	\label{tab:ag-comp}
+\end{table}
+
+\begin{table}[ht!b]
+	\centering
+	\begin{tabular}{|p{2cm}|p{2.3cm}|p{1.4cm}|p{1.7cm}|p{1.5cm}|p{1.8cm}|}
+		\hline 
+		\textbf{Component} & \textbf{Service Name} & \textbf{Type of Service} & \textbf{Execution Time} & \textbf{Used Probability} & \textbf{Number of Execution per Call} \\ 
+		\hline 
+		\multirow{3}{*}{C0-1} & S0 & Provided & 1.0 & & \\\cline{2-6}
+		& S1 & Required & & 0.90 & 3 \\
+		& S4 & Required & & 0.30 & 1 \\
+		\hline 
+		\multirow{3}{*}{C0-2} & S0 & Provided & 2.0 & & \\\cline{2-6}
+		& S1 & Required & & 0.90 & 1 \\
+		& S4 & Required & & 0.10 & 10 \\
+		\hline 
+		\multirow{2}{*}{C1-1} & S1 & Provided & 2.0 & & \\\cline{2-6}
+		& S2 & Required & & 0.90 & 4 \\
+		\hline 
+		\multirow{2}{*}{C1-2} & S1 & Provided & 1.0 & & \\\cline{2-6}
+		& S2 & Required & & 0.90 & 1 \\
+		\hline
+		\multirow{2}{*}{C2-1} & S2 & Provided & 1.0 & & \\\cline{2-6}
+		& S3 & Required & & 0.90 & 1 \\
+		\hline
+		\multirow{2}{*}{C2-2} & S2 & Provided & 4.0 & & \\\cline{2-6}
+		& S3 & Required & & 0.50 & 1 \\
+		\hline
+		\multirow{2}{*}{C2-3} & S2 & Provided & 9.0 & & \\\cline{2-6}
+		& S3 & Required & & 0.50 & 3 \\
+		\hline
+		\multirow{2}{*}{C2-4} & S2 & Provided & 1.0 & & \\\cline{2-6}
+		& S3 & Required & & 0.70 & 1 \\
+		\hline
+		C3-1 & S3 & Provided & 1.0 & & \\
+		\hline
+		C3-2 & S3 & Provided & 5.0 & & \\
+		\hline
+		\multirow{2}{*}{C4-1} & S4 & Provided & 1.0 & & \\\cline{2-6}
+		& S5 & Required & & 0.80 & 3 \\
+		\hline
+		\multirow{2}{*}{C5-1} & S5 & Provided & 3.0 & & \\\cline{2-6}
+		& S6 & Required & & 0.76 & 3 \\
+		\hline
+		\multirow{2}{*}{C5-2} & S5 & Provided & 1.0 & & \\\cline{2-6}
+		& S6 & Required & & 0.87 & 2 \\
+		\hline
+		C6-1 & S6 & Provided & 1.0 & & \\
+		\hline
+		C6-2 & S6 & Provided & 2.0 & & \\
+		\hline
+	\end{tabular} 
+	\caption[Auto Generated Architecture Services]{Auto Generated Architecture Components with their associated services.}
+	\label{tab:ag-serv}
+\end{table}
+
+This architecture has been generated with the provided generator and then slightly adjusted to create a more interesting case of study by altering some component and service characteristics and adding or removing some components without altering the general structure.
+
+As is immediately visible from Figure \ref{fig:testarch} the architecture is highly adaptable but for component \texttt{C4-1} that can be considered a weak link; losing such component can heavily limit the architecture capability. 
+
+\clearpage
+\subsection{Generated Architecture Results}
+
+Setting \emph{System Target Cost} to 300 and \emph{System Target Availability} to 0.9 the following results are achieved:
+
+\begin{table}[ht!b]
+	\centering
+	\begin{tabular}{|l|c|}
+		\hline
+		Metric & Measure \\
+		\hline 
+		\textbf{Global Availability} & 1.18 \\ 
+		\hline 
+		\textbf{Global Cost} & 684.95 \\
+		\hline 
+		\textbf{Total Static Availability} & 1.00 \\
+		\hline 
+		\textbf{Total Cost} & 322.00 \\
+		\hline 
+		\textbf{Mean of Absolute Adaptability} & 2.14 \\
+		\hline
+		\textbf{Mean of Relative Adaptability} & 1.00 \\
+		\hline
+		\textbf{Level of System Adaptability} & 1.00 \\
+		\hline
+	\end{tabular} 
+	\caption[TAS Service Architecture Metrics]{Tele Assistance Architecture metrics results.}
+	\label{tab:ag-arch-res}
+\end{table}
+
+\begin{table}[ht!b]
+	\centering
+	\begin{tabular}{|l|c|c|c|}
+		\hline 
+		\textbf{Component} & \textbf{FRA} & \textbf{FRC} & \textbf{WRT} \\ 
+		\hline 
+		C0-1 & 1.00 & 9.09 & 0.01 \\
+		\hline 
+		C0-2 & 0.77 & 15.00 & 0.02 \\
+		\hline 
+		C1-1 & 1.00 & 60.00 & 0.03 \\
+		\hline 
+		C1-2 & 1.43 & 42.86 & 0.02 \\
+		\hline
+		C2-1 & 0.25 & 30 & 0.04 \\
+		\hline
+		C2-2 & 10.00 & 5.00 & 0.15 \\
+		\hline
+		C2-3 & 0.14 & 60.00 & 0.34 \\
+		\hline
+		C2-4 & 0.77 & 15.00 & 0.04 \\
+		\hline
+		C3-1 & 1.00 & 300.00 & 0.03 \\
+		\hline
+		C3-2 & 10.00 & 30.00 & 0.17 \\
+		\hline
+		C4-1 & 1.00 & 20.00 & 0.01 \\
+		\hline
+		C5-1 & 0.67 & 50.00 & 0.04 \\
+		\hline
+		C5-2 & 1.00 & 30.00 & 0.01 \\
+		\hline
+		C6-1 & 0.59 & 15.00 & 0.03 \\
+		\hline
+		C6-2 & 1.00 & 3.00 & 0.06 \\
+		\hline
+	\end{tabular} 
+	\caption[Generated Architecture Service Components Metrics]{Generated Architecture Components metrics results.}
+	\label{tab:ag-comp-res}
+\end{table}
+
+\begin{table}[ht!b]
+	\centering
+	\begin{tabular}{|l|c|c|c|c|}
+		\hline 
+		\multirow{2}{*}{\textbf{Service}} & \textbf{Number} & \textbf{Probability to} & \textbf{Absolute} & \textbf{Relative} \\ 
+		& \textbf{of Executions} & \textbf{be running} & \textbf{Adaptability} & \textbf{Adaptability} \\
+		\hline 
+		S0 & 1.00 & 0.06 & 2 & 1 \\
+		\hline 
+		S1 & 1.80 & 0.11 & 2 & 1 \\
+		\hline 
+		S2 & 4.05 & 0.26 & 4 & 1 \\
+		\hline 
+		S3 & 3.65 & 0.23 & 2 & 1 \\
+		\hline
+		S4 & 0.65 & 0.04 & 1 & 1 \\
+		\hline
+		S5 & 1.56 & 0.10 & 2 & 1 \\
+		\hline
+		S6 & 3.14 & 0.20 & 2 & 1 \\
+		\hline
+	\end{tabular} 
+	\caption[Generated Architecture Service Services Metrics]{Generated Architecture Services metrics results.}
+	\label{tab:ag-serv-res}
+\end{table}
+
+
+As for the Tele Assistance analysis, the \emph{Global Cost} metric doesn't provide meaningful informations. Since the \emph{System Target Cost} is very high, a very high number in \emph{Global Cost} highlights that the single components cost very little with respect to the target cost but as we can see the \emph{Total Cost} is higher than the target cost; a very high availability has a negative impact on the cost as expected. 
+
+From Table \ref{tab:ag-comp-res} can be seen that not all components have an availability high enough to satisfy the requirements but since they are replicated the availability at the end is enough to meet the requirements.
+
+Particular attention has to be paid to the component \texttt{C4-1} since it isn't replicated it must alone meet the requirement of availability and in fact it does since its \emph{FRA} is equal to 1.
+
+From Table \ref{tab:ag-serv-res} it is clear that even that service \texttt{S4} is only on one component, it is the less used in the architecture and has the less probability to be running, so a failure on that component is very unlikely even if not impossible.

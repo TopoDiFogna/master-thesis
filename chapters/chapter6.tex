@@ -4,7 +4,7 @@
 In this chapter the Adaptability Analyzer Software is used to study two main cases: one is the Tele Assistance System\cite{teleassist} and the other one is generated with the integrated Architecture Generator.
 
 \section{Tele Assistance: A Self-Adaptive Service-Based System}
-Tele Assistance System, also known as TAS, is a research, done by the University of York \cite{teleassist}, on self-adaptation in the domain of service-based systems. Originally introduced in \cite{valid-web-serv} has already been used in the evaluation of several self-adaptation solutions \cite{valid-web-serv}, \cite{sas-quant-ver}, \cite{dyn-qos-manage}, \cite{mod-evo-conf}, \cite{conq-compl}, albeit based on ad-hoc implementations, scenarios and evaluation metrics that make the comparison of these solutions and its use to evaluate other solution very difficult.
+Tele Assistance System, also known as TAS, is a research, done by the Universities of Linnaeus and York  \cite{teleassist}, on self-adaptation in the domain of service-based systems. Originally introduced in \cite{valid-web-serv} has already been used in the evaluation of several self-adaptation solutions \cite{valid-web-serv}, \cite{sas-quant-ver}, \cite{dyn-qos-manage}, \cite{mod-evo-conf}, \cite{conq-compl}, albeit based on ad-hoc implementations, scenarios and evaluation metrics that make the comparison of these solutions and its use to evaluate other solution very difficult. It is an official examplar and it is available via the SEAMS exemplar website: \url{http://self-adaptive.org/exemplars/tas}.
 
 To address these limitation the University of York implemented TAS on their Research Service Platform (ReSeP) in conjunction with concrete scenarios in order to have an immediate use in evaluation of the self-adaptation solutions.
 
@@ -17,7 +17,7 @@ The system provides health support to chronic condition sufferers within the com
 	\label{fig:tas-workflow}
 \end{figure}
 
-They also device some generic adaptation scenarios shown in Table \ref{tab:tas-scenarios} and some metrics shown in table \ref{tab:tas-metrics}
+They also provide some generic adaptation scenarios shown in Table \ref{tab:tas-scenarios} and some metrics shown in table \ref{tab:tas-metrics}
 
 In conclusion TAS is a reference implementation of a service based system and generic adaptation scenarios associated with different types of uncertainty. First, it aims to promote research and understanding among multiple researchers and research groups, through enabling the comparison of different self-adaptation approaches, without favoring any particular approach. Second, TAS aims to serve the advance of single research efforts by reducing the time required to evaluate self-adaptation solutions. Finally, it aims to contribute to advancing the practice of engineering self-adaptive systems, by being a realistic example of a widely used type of software system.
 
@@ -65,11 +65,13 @@ In conclusion TAS is a reference implementation of a service based system and ge
 	\label{tab:tas-metrics}
 \end{table}
 
+In the Adapt Analyzer tool as been implemented the scenario S1 presented in Table \ref{tab:tas-scenarios} which considers equivalent services that differ one another in some of their characteristics and qualities.
+
 \clearpage
 
 \subsection{Adaptability Analyzer Results}
 
-To recreate the original Tele Assistance System in the tool, the architecture has been divided in multiple components, each offering or requesting the services presented in the original system as shown in Table \ref{tab:tas-original-services}
+To recreate the original Tele Assistance System in the tool, the architecture has been divided in multiple components, each offering or requesting the services presented in the original system as shown in Table \ref{tab:tas-original-services}. All the values in Table \ref{tab:tas-original-services} are taken from the official exemplar \cite{teleassist}.
 
 \begin{table}[ht!b]
 	\centering
@@ -105,17 +107,17 @@ Therefore the components are divided in three main groups each offering a servic
 		\hline 
 		\textbf{Component Name} & \textbf{Availability} & \textbf{Cost} \\ 
 		\hline 
-		AS1 & 0.89 & 4.0 \\
+		AS1 & 0.90 & 4.0 \\
 		\hline 
 		AS2 & 0.96 & 12.0 \\ 
 		\hline 
-		AS3 & 0.88 & 2.0 \\ 
+		AS3 & 0.85 & 2.0 \\ 
 		\hline 
-		MAS1 & 0.88 & 4.0 \\ 
+		MAS1 & 0.89 & 4.0 \\ 
 		\hline
 		MAS2 & 0.93 & 14.0 \\ 
 		\hline
-		MAS3 & 0.82 & 2.0 \\ 
+		MAS3 & 0.85 & 2.0 \\ 
 		\hline
 		DS 1 & 0.99 & 5.0 \\ 
 		\hline
@@ -126,7 +128,7 @@ Therefore the components are divided in three main groups each offering a servic
 	\caption[TAS Components]{Tele Assistance Components as they are represented in the tool.}
 	\label{tab:tas-comp}
 \end{table}
-In Table \ref{tab:tas-serv} are presented the components with the associated services and their parameters. Since every service is likely called as much as the other all the Required Services have a Used Probability of $ \frac{1}{3} $. All the other parameters are made up in order to make the tool work.
+In Table \ref{tab:tas-serv} are presented the components with the associated services and their parameters. Since every service is likely called as much as the other all the Required Services have a Used Probability of $ \frac{1}{3} $. All the other parameters are made up in order to make the tool work because the exemplar doesn't provide them. Also the TA service is not specified in the original formulation of the system.
 \begin{table}[ht!b]
 	\centering
 	\begin{tabular}{|p{2cm}|p{2.5cm}|p{1.4cm}|p{1.7cm}|p{1.5cm}|p{1.8cm}|}
@@ -165,20 +167,40 @@ In Table \ref{tab:tas-serv} are presented the components with the associated ser
 	\label{fig:tas-arch}
 \end{figure}
 
-To test the architecture a workflow has been created that reflects part of the original sequence diagram shown in Figure \ref{fig:tas-workflow}. This workflow provides two cases:
+To test the architecture, a workflow has been created that reflects part of the original sequence diagram shown in Figure \ref{fig:tas-workflow}. This workflow provides two cases:
 \begin{itemize}
 	\item The service is invoked and after having read the vital parameters and analyzed the data launches an alarm.
 	\item The service is invoked and after having read the vital parameters and analyzed the data changes the drug that is currently administered to the patient.
 \end{itemize}
 
-This choice has been done since \texttt{Alt} and \texttt{Opt} blocks can't be nested in the actual implementation.
+The original formulation provides five possible paths but only two are presented in this evaluation. This choice has been done since \texttt{Alt} and \texttt{Opt} blocks can't be nested in the actual implementation.
 
-In Figure \ref{fig:tas-path1} and \ref{fig:tas-path2} is shown how the two workflows are implemented in the tool.
+In Figure \ref{fig:tas-path1} and \ref{fig:tas-path2} is shown how the two workflows are implemented in the tool with respect to the original Sequence Diagram \ref{fig:tas-workflow}, with the unused parts removed to reduce clutter.
+
+\clearpage
+\subsubsection{Path 1}
+\begin{figure}[ht]
+	\centerline
+	{\includegraphics[scale=0.6]{img/TeleAssistanceOrigPath1.png}}
+	\caption[TAS Original Workflow Path Alarm]{TAS original workflow with the alarm path selected.}
+	\label{fig:tas-or-path1}
+\end{figure}
+
 \begin{figure}[ht]
 	\centerline
 	{\includegraphics[scale=0.55]{img/TeleAssistancePath1.png}}
 	\caption[TAS Workflow Path Alarm]{TAS workflow with the alarm path selected.}
 	\label{fig:tas-path1}
+\end{figure}
+
+\clearpage
+\subsubsection{Path 2}
+
+\begin{figure}[ht]
+	\centerline
+	{\includegraphics[scale=0.55]{img/TeleAssistanceOrigPath2.png}}
+	\caption[TAS Original Workflow Path Alarm]{TAS original workflow with the changeDrug path selected.}
+	\label{fig:tas-or-path2}
 \end{figure}
 
 \begin{figure}[ht]
@@ -198,9 +220,9 @@ After performing some calculation with the Adaptability Analyzer Tool, with \emp
 		\hline
 		Metric & Measure \\
 		\hline 
-		\textbf{Global Availability} & 12.53 \\ 
+		\textbf{Global FRA} & 12.53 \\ 
 		\hline 
-		\textbf{Global Cost} & 102.74 \\
+		\textbf{Global FRC} & 102.74 \\
 		\hline 
 		\textbf{Total Static Availability} & 0.90 \\
 		\hline 
@@ -218,10 +240,11 @@ After performing some calculation with the Adaptability Analyzer Tool, with \emp
 \end{table}
 
 \begin{table}[ht!b]
-	\centering
+\centering
+\begin{threeparttable}
 	\begin{tabular}{|l|c|c|c|}
 		\hline 
-		\textbf{Component} & \textbf{FRA} & \textbf{FRC} & \textbf{WRT} \\ 
+		\textbf{Component} & \textbf{FRA}\tnote{1} & \textbf{FRC}\tnote{2} & \textbf{WRT}\tnote{3} \\ 
 		\hline 
 		AS1 & 0.91 & 12.50 & 0.02 \\
 		\hline 
@@ -239,9 +262,15 @@ After performing some calculation with the Adaptability Analyzer Tool, with \emp
 		\hline
 		TA & 1 & 10.00 & 0.05 \\
 		\hline
-	\end{tabular} 
-	\caption[TAS Service Components Metrics]{Tele Assistance Components metrics results.}
-	\label{tab:tas-comp-res}
+	\end{tabular}
+	\begin{tablenotes}\footnotesize
+		\item[1] Fitness Ratio w.r.t. Availability. See: \ref{met:fra}
+		\item[2] Fitness Ratio w.r.t. Cost. See: \ref{met:frc}
+		\item[3] Fitness Ratio w.r.t. Availability. See: \ref{met:wrt}
+	\end{tablenotes}
+\end{threeparttable}
+\caption[TAS Service Components Metrics]{Tele Assistance Components metrics results.}
+\label{tab:tas-comp-res}
 \end{table}
 
 \begin{table}[ht!b]
@@ -264,7 +293,7 @@ After performing some calculation with the Adaptability Analyzer Tool, with \emp
 	\label{tab:tas-serv-res}
 \end{table}
 
-As expected from Table \ref{tab:tas-arch-res} can be seen that the Architecture has an high value for Global Cost, this means that every component costs very little with respect to the target cost; on the other hand, Global Availability does not inform the architect that only one component has a much better availability than the one requested for the system. 
+As expected from Table \ref{tab:tas-arch-res} can be seen that the Architecture has a high value for Global Fitness Ratio w.r.t. Cost, this means that every component costs very little with respect to the target cost; on the other hand, Global FRA does not inform the architect that only one component has a much better availability than the one requested for the system. 
 
 All the other informations are basic information about the architecture and, in the case of the Total Static Availability, how it behaves from a static point of view.
 
@@ -272,18 +301,40 @@ From Table \ref{tab:tas-comp-res} it can be seen that, as expected, all the comp
 
 Table \ref{tab:tas-serv-res} shows how service behaves in the architecture; since all of them, excluding TeleAssistance that is the service that the final user utilizes, are equally probable thus for every call the Number of Executions is 0.33 or $\frac{1}{3}$. The Probability to be Running highlights the fact that since half of the computation is done by the main TeleAssistance service the other half is done for the effective used service thus every service has a probability to be working of 0.17 or $\frac{1}{6}$.
 
-The last two columns show how much the component is replicated and if all the replication are used, so the Alarm and MedicalAnalysis which are replicated three times have an Absolute Adaptability of 3, instead the TeleAssistance and Drug service which are not replicated have an Absolute Availability of 1; since all the component are used all the services have a Relative Adaptability of 1.
+The last two columns show how much the component is replicated and if all the replication are used, so the Alarm and MedicalAnalysis which are replicated three times have an Absolute Adaptability of 3, instead the TeleAssistance and Drug service which are not replicated have an Absolute Availability of 1; in this architecture all the component are used all the services have a Relative Adaptability of 1, since the Relative Adaptability is calculated as $\frac{usedComponents}{components}$.
 
-Lets focus now on the dynamic analysis and take a look to the drug service; using the workflow shown in Figures \ref{fig:tas-path1} and \ref{fig:tas-path2} the drug service has a InAction and Service Availability of 0.21.The InAction metric shows that in the particular case of the selected workflow the probability that the drug service is active is higher than the static analysis. The service availability is equal to the InAction metric; this is just a case and a rounding issue since the drug service has a availability that is almost 1.
+Lets focus now on the dynamic analysis and take a look to the drug service; using the workflow shown in Figures \ref{fig:tas-path1} and \ref{fig:tas-path2} the drug service has a \emph{InAction} and Service Availability of 0.21. Such a low availability is due to the fact that the Drug Service is provided by only one component in the provided workflow.
+
+The \emph{InAction} metric shows that in the particular case of the selected workflow the probability that the drug service is active is higher than the static analysis since in the workflow it is used in the \emph{Path 2} and in the same path the Alarm Service is not used. The service availability is equal to the \emph{InAction} metric; this is just a case and a rounding issue since the drug service has an availability that is almost 1.
+
+The results provided by the tool provide some useful information to the Software Architect from which he can come to some conclusions; in this case, for example, it is clear that the \emph{MAS3} component despite having the lowest cost, it also have the lowest availability and higher execution time that can impact negatively on the overall performance of the system, so instead of buying a \emph{MAS3} component, he should buy two \emph{MAS2} components that costs a little more and provide better performance and availability. Another useful information can be that the \emph{TA} component is critical since it is the entry point of the system, losing such component makes the entire system unavailable.
+
+On the adaptability point of view we can examine the graph in Figure \ref{fig:tas-adapt} for a value of adaptability of 0.75. With this level of adaptability all services can be provided to the final user but with very different costs:
+\begin{itemize}
+	\item \textbf{Cost = 22:} we use components AS1, AS3, DS1, MAS1, MAS2 and TA; lower cost but low performance if we relate to the component specifications.
+	\item \textbf{Cost = 44:} we use components AS1, AS2, DS1, MAS1, MAS2 and TA; higher cost but also better performance than before.
+\end{itemize}
+
+
+\begin{figure}[ht]
+	\centerline
+	{\includegraphics[scale=0.55]{img/tas-adapt.png}}
+	\caption[TAS Graph showing Adaptability]{TAS Graph showing Adaptability.}
+	\label{fig:tas-adapt}
+\end{figure}
+
+The graph also shows how different are the costs at the same adaptability level, the software architect can thus have a better overview over the system and its components.
 \clearpage
 
-\section{Random Generated Study Case}
-To show the powerfulness of this tool and its generator, another random generated architecture has been analyzed and its shown in Figure \ref{fig:testarch} and Tables \ref{tab:ag-comp} and \ref{tab:ag-serv}
+\section{Generic Generated Study Case}
+To show the powerfulness of this tool and its generator, another generic generated architecture has been analyzed and its shown in Figure \ref{fig:testarch} and Tables \ref{tab:ag-comp} and \ref{tab:ag-serv}. 
+
+This architecture has been evaluated to see how well the tool can perform even with more complicated systems than the Tele-Assitance exemplar; in the architecture schema shown in Figure \ref{fig:testarch} is immediately visible that the components call each other in a chain and some of them are replicated more than other. This implies that the calculations to perform the evaluation are more computationally elaborated than in the previous case, especially the adaptability of the system that grows exponentially in time with respect to the number of components and branches.
 
 \begin{figure}[ht]
 	\centerline
 	{\includegraphics[scale=0.9]{img/autogenerated_arch.png}}
-	\caption[AutoGenerated Architecture]{An architecture generated by the tool generator.}
+	\caption[Generic Generated Architecture]{An architecture generated by the tool generator.}
 	\label{fig:testarch}
 \end{figure}
 
@@ -372,20 +423,19 @@ This architecture has been generated with the provided generator and then slight
 
 As is immediately visible from Figure \ref{fig:testarch} the architecture is highly adaptable but for component \texttt{C4-1} that can be considered a weak link; losing such component can heavily limit the architecture capability. 
 
-\clearpage
 \subsection{Generated Architecture Results}
 
 Setting \emph{System Target Cost} to 300 and \emph{System Target Availability} to 0.9 the following results are achieved:
 
 \begin{table}[ht!b]
-	\centering
+\centering
 	\begin{tabular}{|l|c|}
 		\hline
 		Metric & Measure \\
 		\hline 
-		\textbf{Global Availability} & 1.18 \\ 
+		\textbf{Global Fitness Ratio w.r.t. Availability} & 1.18 \\ 
 		\hline 
-		\textbf{Global Cost} & 684.95 \\
+		\textbf{Global Fitness Ratio w.r.t. Cost} & 684.95 \\
 		\hline 
 		\textbf{Total Static Availability} & 1.00 \\
 		\hline 
@@ -403,7 +453,8 @@ Setting \emph{System Target Cost} to 300 and \emph{System Target Availability} t
 \end{table}
 
 \begin{table}[ht!b]
-	\centering
+\centering
+\begin{threeparttable}
 	\begin{tabular}{|l|c|c|c|}
 		\hline 
 		\textbf{Component} & \textbf{FRA} & \textbf{FRC} & \textbf{WRT} \\ 
@@ -439,6 +490,12 @@ Setting \emph{System Target Cost} to 300 and \emph{System Target Availability} t
 		C6-2 & 1.00 & 3.00 & 0.06 \\
 		\hline
 	\end{tabular} 
+	\begin{tablenotes}\footnotesize
+	\item[1] Fitness Ratio w.r.t. Availability. See: \ref{met:fra}
+	\item[2] Fitness Ratio w.r.t. Cost. See: \ref{met:frc}
+	\item[3] Fitness Ratio w.r.t. Availability. See: \ref{met:wrt}
+	\end{tablenotes}
+\end{threeparttable}
 	\caption[Generated Architecture Service Components Metrics]{Generated Architecture Components metrics results.}
 	\label{tab:ag-comp-res}
 \end{table}
@@ -470,10 +527,20 @@ Setting \emph{System Target Cost} to 300 and \emph{System Target Availability} t
 \end{table}
 
 
-As for the Tele Assistance analysis, the \emph{Global Cost} metric doesn't provide meaningful informations. Since the \emph{System Target Cost} is very high, a very high number in \emph{Global Cost} highlights that the single components cost very little with respect to the target cost but as we can see the \emph{Total Cost} is higher than the target cost; a very high availability has a negative impact on the cost as expected. 
+As for the Tele Assistance analysis, the \emph{Global Fitness Ratio w.r.t. Cost} metric doesn't provide meaningful informations. Since the \emph{System Target Cost} is very high, a very high number in \emph{Global Fitness Ratio w.r.t. Cost} highlights that the single components cost very little with respect to the target cost but as we can see the \emph{Total Cost} is higher than the target cost; a very high availability has a negative impact on the cost as expected. 
 
 From Table \ref{tab:ag-comp-res} can be seen that not all components have an availability high enough to satisfy the requirements but since they are replicated the availability at the end is enough to meet the requirements.
 
 Particular attention has to be paid to the component \texttt{C4-1} since it isn't replicated it must alone meet the requirement of availability and in fact it does since its \emph{FRA} is equal to 1.
 
 From Table \ref{tab:ag-serv-res} it is clear that even that service \texttt{S4} is only on one component, it is the less used in the architecture and has the less probability to be running, so a failure on that component is very unlikely even if not impossible.
+
+In this case a workflow hasn't much sense since it is a dummy architecture but the adaptability shown in Figure \ref{fig:generic-adapt} provide some good results.
+
+\begin{figure}[ht]
+	\centerline
+	{\includegraphics[scale=0.9]{img/generic-adapt.png}}
+	\caption[Generic Generated Architecture Adaptability]{Generic Generated Architecture Adaptability.}
+	\label{fig:generic-adapt}
+\end{figure}
+In the Adaptability figure is shown how big is the difference between the maximum and the minimum cost of the architecture even for the smallest levels of adaptability; with a more accurate analysis the software architect should understand that this happens because some components cost way more than others, in particular component \emph{C6-2}. Since the algorithm tries to provide as much services as possible these components impact a lot on the total cost of the architecture creating such a difference between the maximum and the minimum cost. 

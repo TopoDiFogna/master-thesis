@@ -84,6 +84,7 @@ Both these parameters are given by the software engineer and come from the previ
 
 \subsection{Components}
 \subsubsection{Fitness ratio w.r.t. availability}
+\label{met:fra}
 This metric defines the ratio between a component availability and the target system availability. This result is from the hypothesis that a component with a high availability can provide, at first glance, more guarantees of functioning. 
 \[ FRA_{C_i} \in \mathbb{R}^+_0 \; | \; FRA_{C_i} = \frac{1 - availability_{target}}{1- availability_{C_i}} \]
 
@@ -92,6 +93,7 @@ This means that if the result is $\ge 1$ the component satisfies the target requ
 A value $\ge 0 $ and $<1$ indicates that this component is prone to failure more frequently than how is requested in the architecture.
 
 \subsubsection{Fitness ratio w.r.t. cost}
+\label{met:frc}
 This metric defines the ratio between a component cost and the system target cost. 
 
 \[ FRC_{C_i} \in \mathbb{R}^+_0 \; | \; FRC_{C_i} = \frac{cost_{target}}{cost_{C_i}}\]
@@ -99,6 +101,7 @@ This metric defines the ratio between a component cost and the system target cos
 With the same component cost, if the system target cost grows higher the Fitness Ratio w.r.t. Cost becomes bigger. This implies that the bigger the component and the system target cost gap is, the more can be saved from buying this component w.r.t. the maximum budget invested in buying all the components.
 
 \subsubsection{Weight of residence time}
+\label{met:wrt}
 This metric calculates which fraction of time a component is running w.r.t total running time of the architecture.
 
 \[ T_{C_i} \in \mathbb{R}^+ \; | \; T_{C_i} = \sum_{i=0}^{n} N_{exec_{PS_i}} * T_{PS_i} \]
@@ -111,16 +114,19 @@ Higher results means that the component runs more than others, thus is an import
 
 \subsection{Services}
 \subsubsection{Number of executions}
+\label{met:ne}
 This metric defines the number of times a service is executed.
 
 \[ N_{exec_{S_i}} \in \mathbb{N} \; | \; \forall PS_i \;\, N_{exec_{S_i}} = \sum_{i=0}^{n} P_{exec_{S_i}} * ExecPerCall_{S_i} * N_{exec_{PS_i}} \]
 
 \subsubsection{Probability to be running}
+\label{met:ptbr}
 This metric defines the probability that a given service is running in a given moment.
 
 \[ PTBR_{S_i} \in [0..1] \; | \; PTBR_{S_i} =  \frac{{N_{exec_{S_i}}}}{ \sum_{i=0}^{n}  N_{exec_{S_i}}} \]
 
 \subsubsection{In Action}
+\label{met:ia}
 This metric calculates the probability to find a given service active considering the dynamic analysis of the architecture.
 
 \[ TimeAction_{S_i} \in \mathbb{R}^+ \; | \; TimeAction_{S_i}=\sum_{j=0}^{n} T_{exec{S_i}Path_j} * P_{exec_{S_i}} \]
@@ -129,14 +135,17 @@ This metric calculates the probability to find a given service active considerin
 It considers all the possible paths available in the selected workflow; in this way a workflow with an \texttt{Alt} and/or \texttt{Opt} block in the sequence diagram can be represented in a correct way.
 
 \subsection{Architecture}
-\subsubsection{Global availability of system}
+\subsubsection{Global Fitness Ratio w.r.t. Availability of system}
+\label{met:gfra}
 Defines the availability of the components that are in the architecture as a probability that are all active in a given instant.
 \[ GAS \in \mathbb{R}^+_0 \; | \; \forall C_i \; GAS = \prod_{i=0}^{n} FRA_{C_i} \]
-A better availability of a component in the architecture implies a better Fitness Ratio w.r.t. Availability that is reflected in a better global availability. Higher numbers mean better availability.
-\subsubsection{Global cost of system}
+A better availability of a component in the architecture implies a better Fitness Ratio w.r.t. Availability that is reflected in a better global Fitness Ratio w.r.t. Availability. Higher numbers mean better availability.
+\subsubsection{Global Fitness Ratio w.r.t. cost of system}
+\label{met:gfrc}
 Defines the total cost of the components in an architecture w.r.t. the cost of each individual component.
 \[ GCS \in \mathbb{R}^+_0 \; | \; \forall C_i GCS = \sum_{i=0}^{n} FRC_{C_i} \]
 \subsubsection{Total Static Availability}
+\label{met:tsa}
 This methods calculate the Availability of an architecture without considering actual workflows of the architecture, so it uses the component diagram. It considers all components as used and considers a call to the main service to use always all the components.
 
 Given that $S_x$ is the main offered service we can calculate the availability of such service as total availability of the system.
@@ -227,11 +236,11 @@ since S1 is the provided service.
 \subsubsection{Probability to be running}
 If we consider S2
 \[PTBR_{S_2} = \frac{2.7}{1 + 2.7 + 0.3} = 0.675\]
-\subsubsection{Global availability of system}
+\subsubsection{Global Fitness Ratio w.r.t. Availability of system}
 We must consider all the components:
 \[GAS = \frac{1-0.90}{1-0.90} + \frac{1-0.90}{1-0.87} + \frac{1-0.90}{1-0.90} + \frac{1-0.90}{1-0.90} + \frac{1-0.90}{1-0.99} + \frac{1-0.90}{1-0.85} = 13.72\]
 This means that the single availability of the components is on average higher or equal to the \emph{$availability_{target}$}.
-\subsubsection{Global cost of system}
+\subsubsection{Global Fitness Ratio w.r.t. Cost of system}
 We must consider all the components:
 \[GAS = \frac{8}{1.2} + \frac{8}{0.8} + \frac{8}{1} + \frac{8}{1.5} + \frac{8}{2} + \frac{8}{0.9} = 42.89\]
 This means that on average all the components cost much less than \emph{$cost_{target}$}.
